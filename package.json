@@ -9,10 +9,13 @@
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/subscriptions/subscriptions.esm.js",
+  "author": {
+    "name": "Alberto Cantu"
+  },
+  "unpkg": "dist/simple-stencil-stripe-subscriptions/simple-stencil-stripe-subscriptions.esm.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ionic-team/stencil-component-starter.git"
+    "url": "https://github.com/prysmex/simple-stencil-stripe-subscriptions.git"
   },
   "files": [
     "dist/",

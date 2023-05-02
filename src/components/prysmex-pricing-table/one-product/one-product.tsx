@@ -12,11 +12,12 @@ import classNames from 'classnames';
 export class OneProduct {
   @Prop() product: ProductWithPrice;
   @Prop() translations: Translations;
+  @Prop() lang: string;
   @Prop() onClick: (_product: ProductWithPrice) => void;
   @Element() element: HTMLElement;
 
   getFeatures(product: ProductWithPrice) {
-    const features = product.metadata.features;
+    const features = product.metadata[`features_${this.lang}`];
     if (features === undefined) {
       return [];
     }

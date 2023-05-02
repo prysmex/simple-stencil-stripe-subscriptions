@@ -1,6 +1,6 @@
 //eslint-disable-next-line no-unused-vars
 import { Component, Prop, Element, h, State, Watch } from '@stencil/core';
-import { getLocaleComponentStrings, Translations } from '../../utils/locale';
+import { getComponentClosestLanguage, getLocaleComponentStrings, Translations } from '../../utils/locale';
 import classNames from 'classnames';
 import { merge } from 'lodash-es';
 
@@ -38,7 +38,9 @@ export interface Product {
   description: string;
   prices: Price[];
   metadata: {
-    features: string;
+    [key: string]: string;
+    features_es?: string;
+    features_en?: string;
   };
   call_to_action_label?: string;
   highlight?: boolean;
@@ -295,14 +297,14 @@ export class PrysmexPricingTable {
           <div class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-4">
             {selectedRecurrence?.products?.map?.(product => {
               return (
-                <one-product product={product} translations={translations} onClick={product => product.onClick(product)}>
+                <one-product product={product} translations={translations} lang={getComponentClosestLanguage(this.element)} onClick={product => product.onClick(product)}>
                   <div slot="callToAction">{product.call_to_action_label ? product.call_to_action_label : translations?.actions.buy_now}</div>
                 </one-product>
               );
             })}
 
             {this.extraProducts.map(product => {
-              return <highlighted-product product={product} onClick={product => product.onClick(product)} />;
+              return <highlighted-product product={product} onClick={product => product.onClick(product)} lang={getComponentClosestLanguage(this.element)} />;
             })}
           </div>
         </div>

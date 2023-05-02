@@ -13,10 +13,12 @@ export { Translations } from "./utils/locale";
 export { Product as Product1 } from "./components/prysmex-pricing-table/prysmex-pricing-table";
 export namespace Components {
     interface HighlightedProduct {
+        "lang": string;
         "onClick": (product: Product) => void;
         "product": Product;
     }
     interface OneProduct {
+        "lang": string;
         "onClick": (_product: ProductWithPrice) => void;
         "product": ProductWithPrice;
         "translations": Translations;
@@ -57,10 +59,12 @@ declare global {
 }
 declare namespace LocalJSX {
     interface HighlightedProduct {
+        "lang"?: string;
         "onClick"?: (product: Product) => void;
         "product"?: Product;
     }
     interface OneProduct {
+        "lang"?: string;
         "onClick"?: (_product: ProductWithPrice) => void;
         "product"?: ProductWithPrice;
         "translations"?: Translations;

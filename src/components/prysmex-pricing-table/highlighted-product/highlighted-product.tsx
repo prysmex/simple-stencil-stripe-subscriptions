@@ -9,9 +9,10 @@ import { Product } from '../prysmex-pricing-table';
 export class HighlightedProduct {
   @Prop() product: Product;
   @Prop() onClick: (product: Product) => void;
+  @Prop() lang: string;
 
   getFeatures(product: Product) {
-    const features = product.metadata.features;
+    const features = product.metadata[`features_${this.lang}`];
     if (features === undefined) {
       return [];
     }

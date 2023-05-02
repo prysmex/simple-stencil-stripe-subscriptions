@@ -1,0 +1,58 @@
+import { Component, Prop, h } from '@stencil/core';
+import { Product } from '../prysmex-pricing-table';
+
+@Component({
+  tag: 'highlighted-product',
+  styleUrl: 'highlighted-product.css',
+  shadow: true,
+})
+export class HighlightedProduct {
+  @Prop() product: Product;
+  @Prop() onClick: (product: Product) => void;
+
+  getFeatures(product: Product) {
+    const features = product.metadata.features;
+    if (features === undefined) {
+      return [];
+    }
+    return features.split(';');
+  }
+
+  render() {
+    const { product } = this;
+    const features = this.getFeatures(product);
+    return (
+      <div class="rounded-3xl p-8 ring-1 xl:p-10 bg-gray-900 ring-gray-900">
+        <h3 id="tier-enterprise" class="text-lg font-semibold leading-8 text-white">
+          {product.name}
+        </h3>
+        <p class="mt-4 text-sm leading-6 text-gray-300">{product.description}</p>
+        <p class="mt-6 flex items-baseline gap-x-1">
+          <span class="text-4xl font-bold tracking-tight text-white">Custom</span>
+        </p>
+        <button
+          onClick={() => this.onClick(product)}
+          class="mt-6 block w-full rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-white/10 text-white hover:bg-white/20 focus-visible:outline-white"
+        >
+          Contact sales
+        </button>
+        <ul role="list" class="mt-8 space-y-3 text-sm leading-6 xl:mt-10 text-gray-300">
+          {features.map(feature => {
+            return (
+              <li class="flex gap-x-3">
+                <svg class="h-6 w-5 flex-none text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                {feature}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }
+}

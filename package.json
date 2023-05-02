@@ -1,6 +1,6 @@
 {
   "name": "simple-stencil-stripe-subscriptions",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Pricing table for Stripe Subscriptions",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -36,7 +36,8 @@
     "lodash-es": "4.17.21",
     "stencil": "^0.0.5",
     "stencil-tailwind-plugin": "^1.7.0",
-    "tailwindcss": "^3.3.2"
+    "tailwindcss": "^3.3.2",
+    "workbox-build": "4.3.1"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",

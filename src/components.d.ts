@@ -13,13 +13,9 @@ export { Translations } from "./utils/locale";
 export { Product as Product1 } from "./components/prysmex-pricing-table/prysmex-pricing-table";
 export namespace Components {
     interface HighlightedProduct {
-        "lang": string;
-        "onClick": (product: Product) => void;
         "product": Product;
     }
     interface OneProduct {
-        "lang": string;
-        "onClick": (_product: ProductWithPrice) => void;
         "product": ProductWithPrice;
         "translations": Translations;
     }
@@ -31,6 +27,14 @@ export namespace Components {
         "products": Product1[];
         "translations": Translations;
     }
+}
+export interface HighlightedProductCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLHighlightedProductElement;
+}
+export interface OneProductCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLOneProductElement;
 }
 declare global {
     interface HTMLHighlightedProductElement extends Components.HighlightedProduct, HTMLStencilElement {
@@ -59,13 +63,11 @@ declare global {
 }
 declare namespace LocalJSX {
     interface HighlightedProduct {
-        "lang"?: string;
-        "onClick"?: (product: Product) => void;
+        "onProductClicked"?: (event: HighlightedProductCustomEvent<Product>) => void;
         "product"?: Product;
     }
     interface OneProduct {
-        "lang"?: string;
-        "onClick"?: (_product: ProductWithPrice) => void;
+        "onProductClicked"?: (event: OneProductCustomEvent<ProductWithPrice>) => void;
         "product"?: ProductWithPrice;
         "translations"?: Translations;
     }

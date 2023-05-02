@@ -14,6 +14,10 @@ export const config: Config = {
     {
       type: 'docs-readme',
     },
+    {
+      type: 'docs-vscode',
+      file: 'vscode-data.json',
+    },
   ],
 
   plugins: [tailwind(), tailwindHMR()],

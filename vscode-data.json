@@ -1,0 +1,29 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "highlighted-product",
+      "description": {
+        "kind": "markdown",
+        "value": ""
+      },
+      "attributes": []
+    },
+    {
+      "name": "one-product",
+      "description": {
+        "kind": "markdown",
+        "value": ""
+      },
+      "attributes": []
+    },
+    {
+      "name": "prysmex-pricing-table",
+      "description": {
+        "kind": "markdown",
+        "value": ""
+      },
+      "attributes": []
+    }
+  ]
+}

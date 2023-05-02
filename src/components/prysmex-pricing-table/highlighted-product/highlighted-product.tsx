@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, h, Event, EventEmitter, Element } from '@stencil/core';
 import { Product } from '../prysmex-pricing-table';
 
 @Component({
@@ -8,11 +8,16 @@ import { Product } from '../prysmex-pricing-table';
 })
 export class HighlightedProduct {
   @Prop() product: Product;
-  @Prop() onClick: (product: Product) => void;
-  @Prop() lang: string;
+  @Element() element: HTMLElement;
+
+  @Event() productClicked: EventEmitter<Product>;
+
+  productClickedHandler(product: Product) {
+    this.productClicked.emit(product);
+  }
 
   getFeatures(product: Product) {
-    const features = product.metadata[`features_${this.lang}`];
+    const features = product.metadata[`features_${this.element.lang || 'en'}`];
     if (features === undefined) {
       return [];
     }
@@ -32,10 +37,11 @@ export class HighlightedProduct {
           <span class="text-4xl font-bold tracking-tight text-white">Custom</span>
         </p>
         <button
-          onClick={() => this.onClick(product)}
-          class="mt-6 block w-full rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-white/10 text-white hover:bg-white/20 focus-visible:outline-white"
+          onClick={() => this.productClickedHandler(product)}
+          {...(product.call_to_action || {})}
+          class="mt-6 block w-full rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-white/10 text-white hover:bg-white/20 focus-visible:outline-white disabled:opacity-50"
         >
-          Contact sales
+          <slot name="callToAction" />
         </button>
         <ul role="list" class="mt-8 space-y-3 text-sm leading-6 xl:mt-10 text-gray-300">
           {features.map(feature => {

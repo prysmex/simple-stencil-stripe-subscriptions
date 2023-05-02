@@ -1,5 +1,5 @@
 //eslint-disable-next-line no-unused-vars
-import { Component, Prop, h, Element } from '@stencil/core';
+import { Component, Prop, h, Element, Event, EventEmitter } from '@stencil/core';
 import { ProductWithPrice } from '../prysmex-pricing-table';
 import { Translations } from '../../../utils/locale';
 import classNames from 'classnames';
@@ -12,12 +12,16 @@ import classNames from 'classnames';
 export class OneProduct {
   @Prop() product: ProductWithPrice;
   @Prop() translations: Translations;
-  @Prop() lang: string;
-  @Prop() onClick: (_product: ProductWithPrice) => void;
   @Element() element: HTMLElement;
 
+  @Event() productClicked: EventEmitter<ProductWithPrice>;
+
+  productClickedHandler(product: ProductWithPrice) {
+    this.productClicked.emit(product);
+  }
+
   getFeatures(product: ProductWithPrice) {
-    const features = product.metadata[`features_${this.lang}`];
+    const features = product.metadata[`features_${this.element.lang || 'en'}`];
     if (features === undefined) {
       return [];
     }
@@ -62,8 +66,9 @@ export class OneProduct {
           <span class="text-sm font-semibold leading-6 text-gray-600">/{translatedInterval}</span>
         </p>
         <button
-          onClick={() => this.onClick(product)}
-          class="mt-6 w-full block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white shadow-sm hover:bg-blue-500 focus-visible:outline-blue-600"
+          onClick={() => this.productClickedHandler(product)}
+          {...(product.call_to_action || {})}
+          class="mt-6 w-full block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white shadow-sm hover:bg-blue-500 focus-visible:outline-blue-600 disabled:opacity-50"
         >
           <slot name="callToAction" />
         </button>

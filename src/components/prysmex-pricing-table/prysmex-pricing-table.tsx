@@ -42,9 +42,11 @@ export interface Product {
     features_es?: string;
     features_en?: string;
   };
-  call_to_action_label?: string;
+  call_to_action?: {
+    label?: string;
+    disabled?: boolean;
+  };
   highlight?: boolean;
-  onClick: (_product: ProductWithPrice) => void;
 }
 
 export interface ProductWithPrice extends Product {
@@ -152,14 +154,6 @@ export class PrysmexPricingTable {
     }, {} as RecurrenceMap);
 
     /**
-     * {
-     *   1_day: {
-     *    interval: 'day',
-     *    interval_count: 1,
-     *    label: 'day',
-     *    products: [];
-     *   }
-     * }
      *
      *
      * {
@@ -297,14 +291,18 @@ export class PrysmexPricingTable {
           <div class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-4">
             {selectedRecurrence?.products?.map?.(product => {
               return (
-                <one-product product={product} translations={translations} lang={getComponentClosestLanguage(this.element)} onClick={product => product.onClick(product)}>
-                  <div slot="callToAction">{product.call_to_action_label ? product.call_to_action_label : translations?.actions.buy_now}</div>
+                <one-product product={product} translations={translations} lang={getComponentClosestLanguage(this.element)}>
+                  <div slot="callToAction">{product.call_to_action?.label ? product.call_to_action?.label : translations?.actions.buy_now}</div>
                 </one-product>
               );
             })}
 
             {this.extraProducts.map(product => {
-              return <highlighted-product product={product} onClick={product => product.onClick(product)} lang={getComponentClosestLanguage(this.element)} />;
+              return (
+                <highlighted-product product={product} lang={getComponentClosestLanguage(this.element)}>
+                  <div slot="callToAction">{product.call_to_action?.label ? product.call_to_action?.label : translations?.actions.contact_sales}</div>
+                </highlighted-product>
+              );
             })}
           </div>
         </div>

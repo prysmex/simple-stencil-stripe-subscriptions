@@ -7,11 +7,17 @@
 
 ## Properties
 
-| Property       | Attribute | Description | Type                                                                                                                                                                                                                                                                                                      | Default     |
-| -------------- | --------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `onClick`      | --        |             | `(_product: ProductWithPrice) => void`                                                                                                                                                                                                                                                                    | `undefined` |
-| `product`      | --        |             | `ProductWithPrice`                                                                                                                                                                                                                                                                                        | `undefined` |
-| `translations` | --        |             | `{ recurrances: { day: string; days: string; week: string; weeks: string; month: string; months: string; year: string; years: string; }; time: { day: string; days: string; week: string; weeks: string; month: string; months: string; year: string; years: string; }; actions: { buy_now: string; }; }` | `undefined` |
+| Property       | Attribute | Description | Type                                                                                                                                                                                                                                                                                                                             | Default     |
+| -------------- | --------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `product`      | --        |             | `ProductWithPrice`                                                                                                                                                                                                                                                                                                               | `undefined` |
+| `translations` | --        |             | `{ recurrances: { day: string; days: string; week: string; weeks: string; month: string; months: string; year: string; years: string; }; time: { day: string; days: string; week: string; weeks: string; month: string; months: string; year: string; years: string; }; actions: { buy_now: string; contact_sales: string; }; }` | `undefined` |
+
+
+## Events
+
+| Event             | Description | Type                            |
+| ----------------- | ----------- | ------------------------------- |
+| `productSelected` |             | `CustomEvent<ProductWithPrice>` |
 
 
 ## Dependencies

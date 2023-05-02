@@ -21,5 +21,6 @@ export default {
   },
   actions: {
     buy_now: 'Buy Now',
+    contact_sales: 'Contact Sales',
   }
 };

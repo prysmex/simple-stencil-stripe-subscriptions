@@ -21,5 +21,6 @@ export default {
   },
   actions: {
     buy_now: 'Comprar Ahora',
-  }
+    contact_sales: 'Contactar a Ventas',
+  },
 };

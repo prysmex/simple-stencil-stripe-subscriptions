@@ -7,10 +7,16 @@
 
 ## Properties
 
-| Property  | Attribute | Description | Type                         | Default     |
-| --------- | --------- | ----------- | ---------------------------- | ----------- |
-| `onClick` | --        |             | `(product: Product) => void` | `undefined` |
-| `product` | --        |             | `Product`                    | `undefined` |
+| Property  | Attribute | Description | Type      | Default     |
+| --------- | --------- | ----------- | --------- | ----------- |
+| `product` | --        |             | `Product` | `undefined` |
+
+
+## Events
+
+| Event             | Description | Type                   |
+| ----------------- | ----------- | ---------------------- |
+| `productSelected` |             | `CustomEvent<Product>` |
 
 
 ## Dependencies

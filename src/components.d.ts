@@ -7,10 +7,10 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Product, ProductWithPrice } from "./components/prysmex-pricing-table/prysmex-pricing-table";
 import { Translations } from "./utils/locale";
-import { Product as Product1 } from "./components/prysmex-pricing-table/prysmex-pricing-table";
+import { Price, Product as Product1 } from "./components/prysmex-pricing-table/prysmex-pricing-table";
 export { Product, ProductWithPrice } from "./components/prysmex-pricing-table/prysmex-pricing-table";
 export { Translations } from "./utils/locale";
-export { Product as Product1 } from "./components/prysmex-pricing-table/prysmex-pricing-table";
+export { Price, Product as Product1 } from "./components/prysmex-pricing-table/prysmex-pricing-table";
 export namespace Components {
     interface HighlightedProduct {
         "product": Product;
@@ -21,6 +21,7 @@ export namespace Components {
     }
     interface PrysmexPricingTable {
         "extraProducts": Product1[];
+        "prices": Price[];
         /**
           * The products
          */
@@ -73,6 +74,7 @@ declare namespace LocalJSX {
     }
     interface PrysmexPricingTable {
         "extraProducts"?: Product1[];
+        "prices"?: Price[];
         /**
           * The products
          */

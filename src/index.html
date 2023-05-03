@@ -376,8 +376,8 @@
           prices: [],
           call_to_action: {
             disabled: true,
-            label: 'Current plan'
-          }
+            label: 'Current plan',
+          },
         },
         {
           id: 'prod_NnEfyogwptyZqW',
@@ -457,21 +457,13 @@
         },
       ];
 
-      products = products.map(product => {
-        product.prices = prices.filter(price => price.product === product.id);
-        return product;
-      });
-
       const pricingTable = document.createElement('prysmex-pricing-table');
-
-      
       pricingTable.products = products.filter(product => product.name !== 'Enterprise');
+      pricingTable.prices = prices;
       pricingTable.extraProducts = products.filter(product => product.name === 'Enterprise');
-
       pricingTable.addEventListener('productClicked', event => {
         console.log(event.detail);
       });
-
       document.body.appendChild(pricingTable);
     </script>
   </body>

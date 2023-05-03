@@ -76,6 +76,7 @@ export class PrysmexPricingTable {
    * The products
    */
   @Prop() products: Product[] = [];
+  @Prop() prices: Price[] = [];
   @Prop() extraProducts: Product[] = [];
 
   @Prop() translations: Translations;
@@ -88,8 +89,8 @@ export class PrysmexPricingTable {
 
   @Watch('products')
   productsChanged() {
-    const { products, _translations: translations } = this;
-    this.preparedData = this.prepareData(products, translations);
+    const { products, _translations: translations, prices } = this;
+    this.preparedData = this.prepareData({ products, translations, prices });
   }
 
   async componentWillLoad() {
@@ -99,7 +100,8 @@ export class PrysmexPricingTable {
     } else {
       this._translations = merge<Translations, Partial<Translations>>(defaultTranslations, this.translations);
     }
-    this.preparedData = this.prepareData(this.products, this._translations);
+
+    this.preparedData = this.prepareData({ products: this.products, translations: this._translations, prices: this.prices });
     this.selectedRecurrence = this.getFirst();
   }
 
@@ -214,9 +216,18 @@ export class PrysmexPricingTable {
     return fullyOrdered;
   }
 
-  prepareData(products: Product[], translations): PreparedData {
+  prepareData({ products, translations, prices }: { products: Product[]; translations: Translations; prices: Price[] }): PreparedData {
     //we need to get all different recurrances, making sure to avoid duplicates (e.g. 1 month, 3 months, 6 months, 1 year)
-    const recurrances = this.prepareRecurrences(products, translations);
+    let productsWithPrices = products.map(p => {
+      return {
+        ...p,
+        prices: prices.filter(price => {
+          return price.product === p.id;
+        }),
+      };
+    });
+
+    const recurrances = this.prepareRecurrences(productsWithPrices, translations);
 
     products.map(p => {
       let product = JSON.parse(JSON.stringify(p)) as Product;

@@ -229,15 +229,6 @@ export class PrysmexPricingTable {
 
     const recurrances = this.prepareRecurrences(productsWithPrices, translations);
 
-    products.map(p => {
-      let product = JSON.parse(JSON.stringify(p)) as Product;
-      product.prices = product.prices.filter(price => price.active);
-      if ((!product.features || product.features.length === 0) && product.metadata.features) {
-        product.features = product.metadata.features.split(';');
-      }
-      return product;
-    });
-
     let grid = {
       recurrances,
     };

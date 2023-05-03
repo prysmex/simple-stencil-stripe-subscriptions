@@ -14,9 +14,9 @@
 
 ## Events
 
-| Event             | Description | Type                   |
-| ----------------- | ----------- | ---------------------- |
-| `productSelected` |             | `CustomEvent<Product>` |
+| Event            | Description | Type                   |
+| ---------------- | ----------- | ---------------------- |
+| `productClicked` |             | `CustomEvent<Product>` |
 
 
 ## Dependencies

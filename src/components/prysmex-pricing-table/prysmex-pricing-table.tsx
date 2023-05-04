@@ -1,6 +1,6 @@
 //eslint-disable-next-line no-unused-vars
 import { Component, Prop, Element, h, State, Watch } from '@stencil/core';
-import { getComponentClosestLanguage, getLocaleComponentStrings, Translations } from '../../utils/locale';
+import { getComponentClosestLanguage, getLocaleComponentStrings, replaceSubstringsWithObject, Translations } from '../../utils/locale';
 import classNames from 'classnames';
 import { merge } from 'lodash-es';
 
@@ -272,12 +272,21 @@ export class PrysmexPricingTable {
   getButtonLabel(product: ProductWithPrice) {
     const { _translations: translations } = this;
 
-    if (product.call_to_action.label) {
+    const freeTrialDays = product.price.recurring?.trial_period_days;
+
+    if (product.call_to_action?.label) {
+      if (freeTrialDays) {
+        return replaceSubstringsWithObject(product.call_to_action.label, {
+          numberOfDays: freeTrialDays.toString(),
+        });
+      }
       return product.call_to_action.label;
     }
 
-    if (product.price?.recurring?.trial_period_days) {
-      return translations.free_trial.replace('#numberOfDays#', product.price.recurring.trial_period_days.toString());
+    if (freeTrialDays) {
+      return replaceSubstringsWithObject(translations.free_trial, {
+        numberOfDays: freeTrialDays.toString(),
+      });
     }
 
     return translations.actions.buy_now;

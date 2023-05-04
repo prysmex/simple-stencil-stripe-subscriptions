@@ -18,3 +18,13 @@ export function getLocaleComponentStrings(element: HTMLElement) {
 
   return locales[componentLanguage];
 }
+
+export function replaceSubstringsWithObject(str, obj) {
+  const regex = new RegExp(
+    Object.keys(obj)
+      .map(key => `\\{${key}\\}`)
+      .join('|'),
+    'gi',
+  );
+  return str.replace(regex, match => obj[match.substring(1, match.length - 1).toLowerCase()]);
+}

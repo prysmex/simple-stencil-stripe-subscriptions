@@ -65,11 +65,11 @@ export interface PreparedData {
 }
 
 @Component({
-  tag: 'prysmex-pricing-table',
-  styleUrl: 'prysmex-pricing-table.css',
+  tag: 'pricing-table',
+  styleUrl: 'pricing-table.css',
   shadow: true,
 })
-export class PrysmexPricingTable {
+export class PricingTable {
   @Element() element: HTMLElement;
 
   /**

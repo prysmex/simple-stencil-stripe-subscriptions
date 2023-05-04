@@ -9,7 +9,7 @@
     <script nomodule src="/build/simple-stencil-stripe-subscriptions.js"></script>
   </head>
   <body>
-    <!-- <prysmex-pricing-table></prysmex-pricing-table> -->
+    <!-- <pricing-table></pricing-table> -->
     <script>
       const prices = [
         {
@@ -457,7 +457,7 @@
         },
       ];
 
-      const pricingTable = document.createElement('prysmex-pricing-table');
+      const pricingTable = document.createElement('pricing-table');
       pricingTable.products = products.filter(product => product.name !== 'Enterprise');
       pricingTable.prices = prices;
       pricingTable.extraProducts = products.filter(product => product.name === 'Enterprise');

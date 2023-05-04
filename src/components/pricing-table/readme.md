@@ -25,9 +25,9 @@
 ### Graph
 ```mermaid
 graph TD;
-  prysmex-pricing-table --> one-product
-  prysmex-pricing-table --> highlighted-product
-  style prysmex-pricing-table fill:#f9f,stroke:#333,stroke-width:4px
+  pricing-table --> one-product
+  pricing-table --> highlighted-product
+  style pricing-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

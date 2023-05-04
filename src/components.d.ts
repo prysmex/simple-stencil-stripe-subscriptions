@@ -5,12 +5,12 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Product, ProductWithPrice } from "./components/prysmex-pricing-table/prysmex-pricing-table";
+import { Product, ProductWithPrice } from "./components/pricing-table/pricing-table";
 import { Translations } from "./utils/locale";
-import { Price, Product as Product1 } from "./components/prysmex-pricing-table/prysmex-pricing-table";
-export { Product, ProductWithPrice } from "./components/prysmex-pricing-table/prysmex-pricing-table";
+import { Price, Product as Product1 } from "./components/pricing-table/pricing-table";
+export { Product, ProductWithPrice } from "./components/pricing-table/pricing-table";
 export { Translations } from "./utils/locale";
-export { Price, Product as Product1 } from "./components/prysmex-pricing-table/prysmex-pricing-table";
+export { Price, Product as Product1 } from "./components/pricing-table/pricing-table";
 export namespace Components {
     interface HighlightedProduct {
         "product": Product;
@@ -19,7 +19,7 @@ export namespace Components {
         "product": ProductWithPrice;
         "translations": Translations;
     }
-    interface PrysmexPricingTable {
+    interface PricingTable {
         "extraProducts": Product1[];
         "prices": Price[];
         /**
@@ -50,16 +50,16 @@ declare global {
         prototype: HTMLOneProductElement;
         new (): HTMLOneProductElement;
     };
-    interface HTMLPrysmexPricingTableElement extends Components.PrysmexPricingTable, HTMLStencilElement {
+    interface HTMLPricingTableElement extends Components.PricingTable, HTMLStencilElement {
     }
-    var HTMLPrysmexPricingTableElement: {
-        prototype: HTMLPrysmexPricingTableElement;
-        new (): HTMLPrysmexPricingTableElement;
+    var HTMLPricingTableElement: {
+        prototype: HTMLPricingTableElement;
+        new (): HTMLPricingTableElement;
     };
     interface HTMLElementTagNameMap {
         "highlighted-product": HTMLHighlightedProductElement;
         "one-product": HTMLOneProductElement;
-        "prysmex-pricing-table": HTMLPrysmexPricingTableElement;
+        "pricing-table": HTMLPricingTableElement;
     }
 }
 declare namespace LocalJSX {
@@ -72,7 +72,7 @@ declare namespace LocalJSX {
         "product"?: ProductWithPrice;
         "translations"?: Translations;
     }
-    interface PrysmexPricingTable {
+    interface PricingTable {
         "extraProducts"?: Product1[];
         "prices"?: Price[];
         /**
@@ -84,7 +84,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "highlighted-product": HighlightedProduct;
         "one-product": OneProduct;
-        "prysmex-pricing-table": PrysmexPricingTable;
+        "pricing-table": PricingTable;
     }
 }
 export { LocalJSX as JSX };
@@ -93,7 +93,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "highlighted-product": LocalJSX.HighlightedProduct & JSXBase.HTMLAttributes<HTMLHighlightedProductElement>;
             "one-product": LocalJSX.OneProduct & JSXBase.HTMLAttributes<HTMLOneProductElement>;
-            "prysmex-pricing-table": LocalJSX.PrysmexPricingTable & JSXBase.HTMLAttributes<HTMLPrysmexPricingTableElement>;
+            "pricing-table": LocalJSX.PricingTable & JSXBase.HTMLAttributes<HTMLPricingTableElement>;
         }
     }
 }

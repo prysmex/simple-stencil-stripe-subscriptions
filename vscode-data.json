@@ -18,7 +18,7 @@
       "attributes": []
     },
     {
-      "name": "prysmex-pricing-table",
+      "name": "pricing-table",
       "description": {
         "kind": "markdown",
         "value": ""

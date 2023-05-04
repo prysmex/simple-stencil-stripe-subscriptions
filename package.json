@@ -1,6 +1,6 @@
 {
   "name": "simple-stencil-stripe-subscriptions",
-  "version": "0.0.8",
+  "version": "0.0.11",
   "description": "Pricing table for Stripe Subscriptions",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -26,7 +26,8 @@
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "@stencil/core": "^3.0.0",

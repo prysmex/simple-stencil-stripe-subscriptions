@@ -1,5 +1,5 @@
 import { Component, Prop, h, Event, EventEmitter, Element } from '@stencil/core';
-import { Product } from '../prysmex-pricing-table';
+import { Product } from '../pricing-table';
 
 @Component({
   tag: 'highlighted-product',

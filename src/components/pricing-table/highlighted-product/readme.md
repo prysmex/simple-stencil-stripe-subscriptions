@@ -23,12 +23,12 @@
 
 ### Used by
 
- - [prysmex-pricing-table](..)
+ - [pricing-table](..)
 
 ### Graph
 ```mermaid
 graph TD;
-  prysmex-pricing-table --> highlighted-product
+  pricing-table --> highlighted-product
   style highlighted-product fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

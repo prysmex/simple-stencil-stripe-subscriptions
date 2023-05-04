@@ -1,6 +1,6 @@
 //eslint-disable-next-line no-unused-vars
 import { Component, Prop, h, Element, Event, EventEmitter } from '@stencil/core';
-import { ProductWithPrice } from '../prysmex-pricing-table';
+import { ProductWithPrice } from '../pricing-table';
 import { Translations } from '../../../utils/locale';
 import classNames from 'classnames';
 

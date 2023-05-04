@@ -9,7 +9,7 @@ export default {
     year: 'Yearly',
     years: 'Years',
   },
-  free_trial: 'Start your #numberOfDays#-day free trial',
+  free_trial: 'Start your {numberOfDays}-day free trial',
   time: {
     day: 'Day',
     days: 'Days',

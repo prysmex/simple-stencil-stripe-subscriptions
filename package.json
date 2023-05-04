@@ -1,6 +1,6 @@
 {
   "name": "simple-stencil-stripe-subscriptions",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Pricing table for Stripe Subscriptions",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",

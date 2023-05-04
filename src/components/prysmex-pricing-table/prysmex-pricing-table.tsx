@@ -269,6 +269,20 @@ export class PrysmexPricingTable {
     return this.preparedData.recurrances[0]?.[0];
   }
 
+  getButtonLabel(product: ProductWithPrice) {
+    const { _translations: translations } = this;
+
+    if (product.call_to_action.label) {
+      return product.call_to_action.label;
+    }
+
+    if (product.price?.recurring?.trial_period_days) {
+      return translations.free_trial.replace('#numberOfDays#', product.price.recurring.trial_period_days.toString());
+    }
+
+    return translations.actions.buy_now;
+  }
+
   render() {
     const { _translations: translations, selectedRecurrence } = this;
     const preparedProducts = this.preparedData;
@@ -294,7 +308,7 @@ export class PrysmexPricingTable {
             {selectedRecurrence?.products?.map?.(product => {
               return (
                 <one-product product={product} translations={translations} lang={getComponentClosestLanguage(this.element)}>
-                  <div slot="callToAction">{product.call_to_action?.label ? product.call_to_action?.label : translations?.actions.buy_now}</div>
+                  <div slot="callToAction">{this.getButtonLabel(product)}</div>
                 </one-product>
               );
             })}

@@ -296,19 +296,22 @@ export class PricingTable {
     const { _translations: translations, selectedRecurrence } = this;
     const preparedProducts = this.preparedData;
 
+    let recurrancesCount = 0;
+    preparedProducts.recurrances.forEach(r => {
+      recurrancesCount += r.length;
+    });
     /**
      * grid-cols-1
      * grid-cols-2
      * grid-cols-3
      * grid-cols-4
+     * grid-cols-5
      */
     return (
       <div class="bg-white font-sans bold">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
           <div class="mt-16 flex justify-center">
-            <fieldset
-              class={`grid grid-cols-${preparedProducts.recurrances.length} gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200`}
-            >
+            <fieldset class={`grid grid-cols-${recurrancesCount} gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200`}>
               {this.renderLabels(selectedRecurrence, preparedProducts.recurrances)}
             </fieldset>
           </div>

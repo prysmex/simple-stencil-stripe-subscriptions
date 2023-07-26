@@ -53,7 +53,7 @@ export class OneProduct {
     const translatedInterval = this.translations.time[product.price.recurring!.interval].toLowerCase();
     const highlighted = !!product.highlight;
 
-    const containerClasses = classNames('rounded-3xl p-8 ring-1 xl:p-10 ring-gray-200', {
+    const containerClasses = classNames('rounded-3xl p-8 ring-1 xl:p-10 ring-gray-200 h-full', {
       'bg-blue-50 ring-blue-500': highlighted,
     });
 
@@ -63,7 +63,7 @@ export class OneProduct {
         <p class="mt-4 text-sm leading-6 text-gray-600">{product.description}</p>
         <p class="mt-6 flex items-baseline gap-x-1">
           <span class="text-4xl font-bold tracking-tight text-gray-900">${priceAmount}</span>
-          <span class="text-sm font-semibold leading-6 text-gray-600">/{translatedInterval}</span>
+          <span class="text-sm font-semibold leading-6 text-gray-600">{translatedInterval}</span>
         </p>
         <button
           onClick={() => this.productClickedHandler(product)}

@@ -28,7 +28,7 @@ export class HighlightedProduct {
     const { product } = this;
     const features = this.getFeatures(product);
     return (
-      <div class="rounded-3xl p-8 ring-1 xl:p-10 bg-gray-900 ring-gray-900">
+      <div class="rounded-3xl p-8 ring-1 xl:p-10 bg-gray-900 ring-gray-900 h-full">
         <h3 id="tier-enterprise" class="text-lg font-semibold leading-8 text-white">
           {product.name}
         </h3>

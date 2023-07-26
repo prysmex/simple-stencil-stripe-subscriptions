@@ -35,7 +35,7 @@ export class OneProduct {
           <h3 id="tier-startup" class="text-lg font-semibold leading-8 text-blue-600">
             {this.product.name}
           </h3>
-          <p class="rounded-full bg-blue-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-blue-600">Most popular</p>
+          <p class="rounded-full bg-blue-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-blue-600">{this.translations.most_popular}</p>
         </div>
       );
     }

@@ -1,4 +1,5 @@
 export default {
+  most_popular: 'Más Popular',
   recurrances: {
     day: 'Diario',
     days: 'Dias',

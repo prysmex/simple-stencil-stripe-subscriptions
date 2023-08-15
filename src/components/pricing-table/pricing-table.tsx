@@ -373,7 +373,7 @@ export class PricingTable {
     return (
       <div class="bg-white font-sans bold">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
-          <div class="mt-16 flex justify-center">
+          <div class="flex justify-center">
             <fieldset class={`grid grid-cols-${recurrancesCount} gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200`}>
               {this.renderLabels(selectedRecurrence, preparedProducts.recurrances)}
             </fieldset>

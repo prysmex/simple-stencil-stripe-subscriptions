@@ -17,6 +17,10 @@
       },
       "attributes": [
         {
+          "name": "currency",
+          "description": ""
+        },
+        {
           "name": "quantity",
           "description": ""
         }
@@ -28,7 +32,16 @@
         "kind": "markdown",
         "value": ""
       },
-      "attributes": []
+      "attributes": [
+        {
+          "name": "currency",
+          "description": ""
+        },
+        {
+          "name": "hide-tiered-input",
+          "description": ""
+        }
+      ]
     },
     {
       "name": "tiered-input",

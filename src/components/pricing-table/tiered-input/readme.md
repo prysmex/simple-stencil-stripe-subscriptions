@@ -7,11 +7,11 @@
 
 ## Properties
 
-| Property   | Attribute  | Description | Type               | Default     |
-| ---------- | ---------- | ----------- | ------------------ | ----------- |
-| `label`    | `label`    |             | `string`           | `undefined` |
-| `onInput`  | --         |             | `(e: any) => void` | `undefined` |
-| `quantity` | `quantity` |             | `number`           | `1`         |
+| Property         | Attribute  | Description | Type               | Default     |
+| ---------------- | ---------- | ----------- | ------------------ | ----------- |
+| `changeQuantity` | --         |             | `(e: any) => void` | `undefined` |
+| `label`          | `label`    |             | `string`           | `undefined` |
+| `quantity`       | `quantity` |             | `number`           | `1`         |
 
 
 ## Dependencies

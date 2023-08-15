@@ -70,7 +70,6 @@ export class OneProduct {
   }
 
   calculateTierPrice() {
-    debugger
     if (this.product.price.tiers_mode === 'graduated') {
       return Number((this.calculateTotalCostFor(this.quantity) / this.quantity).toFixed(2));
     } else {

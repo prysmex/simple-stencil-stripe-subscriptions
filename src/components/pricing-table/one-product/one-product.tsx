@@ -71,7 +71,7 @@ export class OneProduct {
 
   calculateTierPrice() {
     if (this.product.price.tiers_mode === 'graduated') {
-      return Number((this.calculateTotalCostFor(this.quantity) / this.quantity).toFixed(2));
+      return Number((this.calculateTotalCostFor(this.quantity) / this.quantity / 100).toFixed(2));
     } else {
       const tiers = this.product.price.currency_options[this.currency].tiers!;
       const tier = tiers.find(tier => this.quantity <= tier.up_to);

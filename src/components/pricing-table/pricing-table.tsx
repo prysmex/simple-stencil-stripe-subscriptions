@@ -33,6 +33,7 @@ export interface Price {
   currency_options?: {
     [key: string]: {
       tiers: Tier[];
+      unit_amount: number;
     };
   };
 }
@@ -213,11 +214,15 @@ export class PricingTable {
     });
 
     //I need to sort now by the product price
+    debugger;
     fullyOrdered.forEach((interval: PreparedRecurrence[]) => {
       interval.forEach((recurrence: PreparedRecurrence) => {
         recurrence.products.sort((a, b) => {
-          const aPrice = a.price.tiers ? a.price.tiers[0].unit_amount : a.price.unit_amount;
-          const bPrice = b.price.tiers ? b.price.tiers[0].unit_amount : b.price.unit_amount;
+          let aPrice, bPrice;
+          if (a.price.billing_scheme === 'tiered') {
+            aPrice = a.price.currency_options[this.currentCurrency].tiers?.[0]?.unit_amount || a.price.currency_options[this.currentCurrency].unit_amount;
+            bPrice = b.price.currency_options[this.currentCurrency].tiers?.[0]?.unit_amount || b.price.currency_options[this.currentCurrency].unit_amount;
+          }
 
           if (aPrice! < bPrice!) {
             return -1;

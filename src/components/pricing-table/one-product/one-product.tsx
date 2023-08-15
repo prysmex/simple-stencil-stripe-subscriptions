@@ -71,6 +71,16 @@ export class OneProduct {
 
   calculateTierPrice() {
     if (this.product.price.tiers_mode === 'graduated') {
+      const tiers = this.product.price.currency_options[this.currency].tiers!;
+      let tierWithHigherUnitAmount = tiers.find(tier => this.quantity <= tier.up_to);
+      if (!tierWithHigherUnitAmount) {
+        const infTier = tiers.find(tier => {
+          const a = typeof tier.up_to === 'string' && tier.up_to === 'inf';
+          const b = !tier.up_to && tier.up_to !== 0;
+          return a || b;
+        });
+        return Number((infTier.unit_amount / 100).toFixed(2));
+      }
       return Number((this.calculateTotalCostFor(this.quantity) / this.quantity / 100).toFixed(2));
     } else {
       const tiers = this.product.price.currency_options[this.currency].tiers!;

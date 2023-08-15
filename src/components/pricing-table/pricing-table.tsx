@@ -214,7 +214,6 @@ export class PricingTable {
     });
 
     //I need to sort now by the product price
-    debugger;
     fullyOrdered.forEach((interval: PreparedRecurrence[]) => {
       interval.forEach((recurrence: PreparedRecurrence) => {
         recurrence.products.sort((a, b) => {

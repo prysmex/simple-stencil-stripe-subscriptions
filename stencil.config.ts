@@ -1,5 +1,18 @@
 import { Config } from '@stencil/core';
-import tailwind, { tailwindHMR } from 'stencil-tailwind-plugin';
+import tailwind, { TailwindConfig, tailwindHMR } from 'stencil-tailwind-plugin';
+
+const twConfigurationFn = (filename: string, config: TailwindConfig): TailwindConfig => {
+  return {
+    ...config,
+    plugins: [
+      require('@tailwindcss/forms'),
+    ],
+  };
+};
+
+const opts = {
+  tailwindConf: twConfigurationFn,
+};
 
 export const config: Config = {
   namespace: 'simple-stencil-stripe-subscriptions',
@@ -20,5 +33,5 @@ export const config: Config = {
     },
   ],
 
-  plugins: [tailwind(), tailwindHMR()],
+  plugins: [tailwind(opts), tailwindHMR()],
 };

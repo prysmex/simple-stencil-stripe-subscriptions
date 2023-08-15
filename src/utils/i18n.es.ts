@@ -1,5 +1,13 @@
 export default {
   most_popular: 'Más Popular',
+  tiered_input: {
+    label: '¿Cuántos usuarios hay en tu equipo?'
+  },
+  currency: 'Moneda',
+  currencies: {
+    mxn: 'MXN',
+    usd: 'USD',
+  },
   recurrances: {
     day: 'Diario',
     days: 'Dias',

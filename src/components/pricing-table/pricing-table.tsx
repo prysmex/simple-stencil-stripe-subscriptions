@@ -28,6 +28,13 @@ export interface Price {
   unit_amount: number;
   is_subscribed?: boolean;
   tiers?: Tier[];
+  billing_scheme?: 'per_unit' | 'tiered';
+  tiers_mode?: 'graduated' | 'volume';
+  currency_options?: {
+    [key: string]: {
+      tiers: Tier[];
+    };
+  };
 }
 
 export interface Product {
@@ -78,10 +85,14 @@ export class PricingTable {
   @Prop() products: Product[] = [];
   @Prop() prices: Price[] = [];
   @Prop() extraProducts: Product[] = [];
+  @Prop() currency: string = 'mxn';
+  @Prop() hideTieredInput: boolean = false;
 
   @Prop() translations: Translations;
 
   @State() selectedRecurrence: PreparedRecurrence;
+  @State() quantity: number = 1;
+  @State() currentCurrency: string = 'mxn';
 
   _translations?: Translations;
 
@@ -91,6 +102,11 @@ export class PricingTable {
   productsChanged() {
     const { products, _translations: translations, prices } = this;
     this.preparedData = this.prepareData({ products, translations, prices });
+  }
+
+  @Watch('currency')
+  currencyChanged() {
+    this.currentCurrency = this.currency;
   }
 
   async componentWillLoad() {
@@ -103,6 +119,7 @@ export class PricingTable {
 
     this.preparedData = this.prepareData({ products: this.products, translations: this._translations, prices: this.prices });
     this.selectedRecurrence = this.getFirst();
+    this.currentCurrency = this.currency;
   }
 
   generateRecurrenceLabel(recurrance: Partial<PreparedRecurrence>, translations: Translations) {
@@ -292,6 +309,41 @@ export class PricingTable {
     return translations.actions.buy_now;
   }
 
+  getTieredInputAndCurrency() {
+    if (!this.hideTieredInput) {
+      return (
+        <div class="mt-10 flex gap-x-8 justify-center">
+          <tiered-input
+            label={this._translations.tiered_input.label}
+            quantity={this.quantity}
+            changeQuantity={(e: InputEvent) => {
+              const num = Number((e.target as HTMLInputElement).value) || 1;
+              this.quantity = num;
+            }}
+          />
+          <div>
+            <label htmlFor="currency" class="block text-sm font-medium leading-6 text-gray-900">
+              {this._translations.currency}
+            </label>
+            <select
+              id="currency"
+              name="currency"
+              onInput={event => (this.currentCurrency = (event.target as HTMLSelectElement).value)}
+              class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            >
+              <option value="mxn" selected={this.currentCurrency === 'mxn'}>
+                🇲🇽 MXN
+              </option>
+              <option value="usd" selected={this.currentCurrency === 'usd'}>
+                🇺🇸 USD
+              </option>
+            </select>
+          </div>
+        </div>
+      );
+    }
+  }
+
   render() {
     const { _translations: translations, selectedRecurrence } = this;
     const preparedProducts = this.preparedData;
@@ -316,10 +368,18 @@ export class PricingTable {
             </fieldset>
           </div>
 
+          {this.getTieredInputAndCurrency()}
+
           <div class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-4">
             {selectedRecurrence?.products?.map?.(product => {
               return (
-                <one-product product={product} translations={translations} lang={getComponentClosestLanguage(this.element)}>
+                <one-product
+                  product={product}
+                  translations={translations}
+                  lang={getComponentClosestLanguage(this.element)}
+                  quantity={this.quantity}
+                  currency={this.currentCurrency}
+                >
                   <div slot="callToAction">{this.getButtonLabel(product)}</div>
                 </one-product>
               );

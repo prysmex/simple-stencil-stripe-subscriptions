@@ -12,6 +12,8 @@ import classNames from 'classnames';
 export class OneProduct {
   @Prop() product: ProductWithPrice;
   @Prop() translations: Translations;
+  @Prop() quantity = 1;
+  @Prop() currency: string = 'mxn';
   @Element() element: HTMLElement;
 
   @Event() productClicked: EventEmitter<ProductWithPrice>;
@@ -46,9 +48,50 @@ export class OneProduct {
     );
   }
 
+  calculateTotalCostFor(seats: number) {
+    const tiers = this.product.price.currency_options[this.currency].tiers!;
+
+    let totalCost = 0;
+    //Agregate graduated pricing
+    for (let i = 0; i < tiers.length; i++) {
+      const tier = tiers[i]!;
+      const previousTier = tiers[i - 1];
+      const previousTierUpTo = previousTier && i > 0 ? (typeof previousTier.up_to === 'string' && previousTier.up_to === 'inf' ? 0 : previousTier.up_to) : 0;
+
+      if ((typeof tier.up_to === 'string' && tier.up_to === 'inf') || seats < tier.up_to) {
+        totalCost += (seats - previousTierUpTo) * tier.unit_amount;
+        break;
+      } else {
+        totalCost += (tier.up_to - previousTierUpTo) * tier.unit_amount;
+      }
+    }
+
+    return totalCost;
+  }
+
+  calculateTierPrice() {
+    debugger
+    if (this.product.price.tiers_mode === 'graduated') {
+      return Number((this.calculateTotalCostFor(this.quantity) / this.quantity).toFixed(2));
+    } else {
+      const tiers = this.product.price.currency_options[this.currency].tiers!;
+      const tier = tiers.find(tier => this.quantity <= tier.up_to);
+      if (tier) {
+        return tier.unit_amount / 100;
+      }
+    }
+  }
+
   render() {
     const product = this.product;
-    const priceAmount = (product.price.unit_amount === null ? product.price.tiers?.[0].unit_amount : product.price.unit_amount)! / 100;
+    let priceAmount = 0;
+
+    if (product.price.billing_scheme === 'tiered') {
+      priceAmount = this.calculateTierPrice();
+    } else {
+      priceAmount = product.price.unit_amount / 100;
+    }
+
     const features = this.getFeatures(product);
     const translatedInterval = this.translations.time[product.price.recurring!.interval].toLowerCase();
     const highlighted = !!product.highlight;

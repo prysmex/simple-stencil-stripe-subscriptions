@@ -15,7 +15,12 @@
         "kind": "markdown",
         "value": ""
       },
-      "attributes": []
+      "attributes": [
+        {
+          "name": "quantity",
+          "description": ""
+        }
+      ]
     },
     {
       "name": "pricing-table",
@@ -24,6 +29,23 @@
         "value": ""
       },
       "attributes": []
+    },
+    {
+      "name": "tiered-input",
+      "description": {
+        "kind": "markdown",
+        "value": ""
+      },
+      "attributes": [
+        {
+          "name": "label",
+          "description": ""
+        },
+        {
+          "name": "quantity",
+          "description": ""
+        }
+      ]
     }
   ]
 }

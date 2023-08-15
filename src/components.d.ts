@@ -16,17 +16,26 @@ export namespace Components {
         "product": Product;
     }
     interface OneProduct {
+        "currency": string;
         "product": ProductWithPrice;
+        "quantity": number;
         "translations": Translations;
     }
     interface PricingTable {
+        "currency": string;
         "extraProducts": Product1[];
+        "hideTieredInput": boolean;
         "prices": Price[];
         /**
           * The products
          */
         "products": Product1[];
         "translations": Translations;
+    }
+    interface TieredInput {
+        "changeQuantity": (e) => void;
+        "label": Translations['tiered_input']['label'];
+        "quantity": number;
     }
 }
 export interface HighlightedProductCustomEvent<T> extends CustomEvent<T> {
@@ -56,10 +65,17 @@ declare global {
         prototype: HTMLPricingTableElement;
         new (): HTMLPricingTableElement;
     };
+    interface HTMLTieredInputElement extends Components.TieredInput, HTMLStencilElement {
+    }
+    var HTMLTieredInputElement: {
+        prototype: HTMLTieredInputElement;
+        new (): HTMLTieredInputElement;
+    };
     interface HTMLElementTagNameMap {
         "highlighted-product": HTMLHighlightedProductElement;
         "one-product": HTMLOneProductElement;
         "pricing-table": HTMLPricingTableElement;
+        "tiered-input": HTMLTieredInputElement;
     }
 }
 declare namespace LocalJSX {
@@ -68,12 +84,16 @@ declare namespace LocalJSX {
         "product"?: Product;
     }
     interface OneProduct {
+        "currency"?: string;
         "onProductClicked"?: (event: OneProductCustomEvent<ProductWithPrice>) => void;
         "product"?: ProductWithPrice;
+        "quantity"?: number;
         "translations"?: Translations;
     }
     interface PricingTable {
+        "currency"?: string;
         "extraProducts"?: Product1[];
+        "hideTieredInput"?: boolean;
         "prices"?: Price[];
         /**
           * The products
@@ -81,10 +101,16 @@ declare namespace LocalJSX {
         "products"?: Product1[];
         "translations"?: Translations;
     }
+    interface TieredInput {
+        "changeQuantity"?: (e) => void;
+        "label"?: Translations['tiered_input']['label'];
+        "quantity"?: number;
+    }
     interface IntrinsicElements {
         "highlighted-product": HighlightedProduct;
         "one-product": OneProduct;
         "pricing-table": PricingTable;
+        "tiered-input": TieredInput;
     }
 }
 export { LocalJSX as JSX };
@@ -94,6 +120,7 @@ declare module "@stencil/core" {
             "highlighted-product": LocalJSX.HighlightedProduct & JSXBase.HTMLAttributes<HTMLHighlightedProductElement>;
             "one-product": LocalJSX.OneProduct & JSXBase.HTMLAttributes<HTMLOneProductElement>;
             "pricing-table": LocalJSX.PricingTable & JSXBase.HTMLAttributes<HTMLPricingTableElement>;
+            "tiered-input": LocalJSX.TieredInput & JSXBase.HTMLAttributes<HTMLTieredInputElement>;
         }
     }
 }

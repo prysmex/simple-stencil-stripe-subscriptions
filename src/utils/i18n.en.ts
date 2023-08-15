@@ -1,5 +1,13 @@
 export default {
   most_popular: 'Most Popular',
+  tiered_input: {
+    label: 'How many users are on your team?'
+  },
+  currency: 'Currency',
+  currencies: {
+    mxn: 'MXN',
+    usd: 'USD',
+  },
   recurrances: {
     day: 'Daily',
     days: 'Days',

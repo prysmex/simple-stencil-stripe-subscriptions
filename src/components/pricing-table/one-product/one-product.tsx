@@ -105,8 +105,8 @@ export class OneProduct {
         <p class="mt-4 text-sm leading-6 text-gray-600">{product.description}</p>
         <p class="mt-6 flex items-baseline gap-x-1">
           <span class="text-4xl font-bold tracking-tight text-gray-900">${priceAmount}</span>
-          <span class="text-sm font-semibold leading-6 text-gray-600">{translatedInterval}</span>
         </p>
+        <span class="text-sm font-semibold leading-6 text-gray-600">{translatedInterval}</span>
         <button
           onClick={() => this.productClickedHandler(product)}
           {...(product.call_to_action || {})}

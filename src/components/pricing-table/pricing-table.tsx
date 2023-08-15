@@ -316,33 +316,40 @@ export class PricingTable {
   getTieredInputAndCurrency() {
     if (!this.hideTieredInput) {
       return (
-        <div class="mt-10 flex gap-x-8 justify-center">
-          <tiered-input
-            label={this._translations.tiered_input.label}
-            quantity={this.quantity}
-            changeQuantity={(e: InputEvent) => {
-              const num = Number((e.target as HTMLInputElement).value) || 1;
-              this.quantity = num;
-            }}
-          />
-          <div>
-            <label htmlFor="currency" class="block text-sm font-medium leading-6 text-gray-900">
-              {this._translations.currency}
-            </label>
-            <select
-              id="currency"
-              name="currency"
-              onInput={event => (this.currentCurrency = (event.target as HTMLSelectElement).value)}
-              class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            >
-              <option value="mxn" selected={this.currentCurrency === 'mxn'}>
-                🇲🇽 MXN
-              </option>
-              <option value="usd" selected={this.currentCurrency === 'usd'}>
-                🇺🇸 USD
-              </option>
-            </select>
+        <div class="mt-10">
+          <div class="flex gap-x-8 justify-center">
+            <tiered-input
+              label={this._translations.tiered_input.label}
+              quantity={this.quantity}
+              changeQuantity={(e: InputEvent) => {
+                const num = Number((e.target as HTMLInputElement).value) || 1;
+                this.quantity = num;
+              }}
+            />
+            <div>
+              <label htmlFor="currency" class="block text-sm font-medium leading-6 text-gray-900">
+                {this._translations.currency}
+              </label>
+              <select
+                id="currency"
+                name="currency"
+                onInput={event => (this.currentCurrency = (event.target as HTMLSelectElement).value)}
+                class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              >
+                <option value="mxn" selected={this.currentCurrency === 'mxn'}>
+                  🇲🇽 MXN
+                </option>
+                <option value="usd" selected={this.currentCurrency === 'usd'}>
+                  🇺🇸 USD
+                </option>
+              </select>
+            </div>
           </div>
+          {this._translations.tiered_input.description && (
+            <p class="mt-2 text-sm text-gray-500 text-center" id="email-description">
+              {this._translations.tiered_input.description}
+            </p>
+          )}
         </div>
       );
     }

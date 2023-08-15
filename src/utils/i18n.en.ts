@@ -1,7 +1,8 @@
 export default {
   most_popular: 'Most Popular',
   tiered_input: {
-    label: 'How many users are on your team?'
+    label: 'How many users are on your team?',
+    description: '* Discounts start at 15 users',
   },
   currency: 'Currency',
   currencies: {

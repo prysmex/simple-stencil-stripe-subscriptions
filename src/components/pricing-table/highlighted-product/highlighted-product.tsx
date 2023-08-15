@@ -36,7 +36,7 @@ export class HighlightedProduct {
         <p class="mt-6 flex items-baseline gap-x-1">
           <span class="text-4xl font-bold tracking-tight text-white">{product.price_label}</span>
         </p>
-        <span class="text-sm font-semibold leading-6 text-gray-600">{product.interval_label}</span>
+        <span class="text-sm font-semibold leading-6 text-gray-300">{product.interval_label}</span>
         <button
           onClick={() => this.productClickedHandler(product)}
           {...(product.call_to_action || {})}

@@ -1244,6 +1244,11 @@
       const prices = data.prices.data;
       const products = data.products.data;
 
+      const enterpriseProduct = products.find(product => product.name === 'Enterprise');
+
+      enterpriseProduct.price_label = 'Custom';
+      enterpriseProduct.interval_label = 'Contact us';
+
       const pricingTable = document.createElement('pricing-table');
       pricingTable.products = products.filter(product => product.name !== 'Enterprise');
       pricingTable.prices = prices;

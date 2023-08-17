@@ -318,7 +318,7 @@ export class PricingTable {
   getTieredInputAndCurrency() {
     if (!this.hideTieredInput) {
       return (
-        <div class="mt-10">
+        <div class="mt-6">
           <div class="flex gap-x-8 justify-center">
             <tiered-input
               label={this._translations.tiered_input.label}
@@ -359,7 +359,7 @@ export class PricingTable {
 
   getFooter() {
     if (this._translations.footer) {
-      return <p class="mt-2 text-xs text-gray-500 text-center" innerHTML={this._translations.footer}></p>;
+      return <p class="mt-6 text-xs text-gray-500 text-center" innerHTML={this._translations.footer}></p>;
     }
   }
 
@@ -389,7 +389,7 @@ export class PricingTable {
 
           {this.getTieredInputAndCurrency()}
 
-          <div class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-4">
+          <div class="isolate mx-auto mt-6 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-4">
             {selectedRecurrence?.products?.map?.(product => {
               return (
                 <one-product

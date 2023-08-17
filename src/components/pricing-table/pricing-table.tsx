@@ -49,6 +49,8 @@ export interface Product {
     [key: string]: string;
     features_es?: string;
     features_en?: string;
+    description_es?: string;
+    description_en?: string;
   };
   call_to_action?: {
     label?: string;
@@ -346,12 +348,18 @@ export class PricingTable {
             </div>
           </div>
           {this._translations.tiered_input.description && (
-            <p class="mt-2 text-sm text-gray-500 text-center" id="email-description">
+            <p class="mt-2 text-xs text-gray-500 text-center" id="email-description">
               {this._translations.tiered_input.description}
             </p>
           )}
         </div>
       );
+    }
+  }
+
+  getFooter() {
+    if (this._translations.footer) {
+      return <p class="mt-2 text-xs text-gray-500 text-center" innerHTML={this._translations.footer}></p>;
     }
   }
 
@@ -404,6 +412,7 @@ export class PricingTable {
               );
             })}
           </div>
+          {this.getFooter()}
         </div>
       </div>
     );

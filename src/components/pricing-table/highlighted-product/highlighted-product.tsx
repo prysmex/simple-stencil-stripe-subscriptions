@@ -24,6 +24,13 @@ export class HighlightedProduct {
     return features.split(';');
   }
 
+  getDescription(product: Product) {
+    const metadataDescription = product.metadata[`description_${this.element.lang || 'en'}`];
+    if (product.description || metadataDescription) {
+      return <p class="mt-4 text-sm leading-6 text-gray-300">{metadataDescription ? metadataDescription : product.description}</p>;
+    }
+  }
+
   render() {
     const { product } = this;
     const features = this.getFeatures(product);
@@ -32,7 +39,7 @@ export class HighlightedProduct {
         <h3 id="tier-enterprise" class="text-lg font-semibold leading-8 text-white">
           {product.name}
         </h3>
-        <p class="mt-4 text-sm leading-6 text-gray-300">{product.description}</p>
+        {this.getDescription(product)}
         <p class="mt-6 flex items-baseline gap-x-1">
           <span class="text-4xl font-bold tracking-tight text-white">{product.price_label}</span>
         </p>

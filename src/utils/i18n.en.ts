@@ -34,4 +34,5 @@ export default {
     buy_now: 'Buy Now',
     contact_sales: 'Contact Sales',
   },
+  footer: '* Prices shown excludes taxes <br /> * Ask for our discounts for small businesses',
 };

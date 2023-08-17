@@ -91,6 +91,13 @@ export class OneProduct {
     }
   }
 
+  getDescription(product: ProductWithPrice) {
+    const metadataDescription = product.metadata[`description_${this.element.lang || 'en'}`];
+    if (product.description || metadataDescription) {
+      return <p class="mt-4 text-sm leading-6 text-gray-600">{metadataDescription ? metadataDescription : product.description}</p>;
+    }
+  }
+
   render() {
     const product = this.product;
     let priceAmount = 0;
@@ -112,7 +119,7 @@ export class OneProduct {
     return (
       <div class={containerClasses}>
         {this.getHeader()}
-        <p class="mt-4 text-sm leading-6 text-gray-600">{product.description}</p>
+        {this.getDescription(product)}
         <p class="mt-6 flex items-baseline gap-x-1">
           <span class="text-4xl font-bold tracking-tight text-gray-900">${priceAmount}</span>
         </p>

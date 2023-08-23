@@ -79,9 +79,9 @@ export class OneProduct {
           const b = !tier.up_to && tier.up_to !== 0;
           return a || b;
         });
-        return Number((infTier.unit_amount / 100).toFixed(2));
+        return Number(infTier.unit_amount / 100);
       }
-      return Number((this.calculateTotalCostFor(this.quantity) / this.quantity / 100).toFixed(2));
+      return Number(this.calculateTotalCostFor(this.quantity) / this.quantity / 100);
     } else {
       const tiers = this.product.price.currency_options[this.currency].tiers!;
       const tier = tiers.find(tier => this.quantity <= tier.up_to);
@@ -98,6 +98,14 @@ export class OneProduct {
     }
   }
 
+  getFormatter() {
+    if (this.currency === 'usd') {
+      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 });
+    } else if (this.currency === 'mxn') {
+      return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 0, maximumFractionDigits: 2 });
+    }
+  }
+
   render() {
     const product = this.product;
     let priceAmount = 0;
@@ -108,8 +116,13 @@ export class OneProduct {
       priceAmount = product.price.unit_amount / 100;
     }
 
+    const formatter = this.getFormatter();
+    let displayPriceAmount = formatter.format(priceAmount);
+    const total = formatter.format(Number(priceAmount * this.quantity));
+
     const features = this.getFeatures(product);
     const translatedInterval = this.translations.time[product.price.recurring!.interval].toLowerCase();
+    const unit = this.translations.unit.toLowerCase();
     const highlighted = !!product.highlight;
 
     const containerClasses = classNames('rounded-3xl p-8 ring-1 xl:p-10 ring-gray-200 h-full', {
@@ -121,9 +134,17 @@ export class OneProduct {
         {this.getHeader()}
         {this.getDescription(product)}
         <p class="mt-6 flex items-baseline gap-x-1">
-          <span class="text-4xl font-bold tracking-tight text-gray-900">${priceAmount}</span>
+          <span class="text-4xl font-bold tracking-tight text-gray-900">{displayPriceAmount}</span>
         </p>
-        <span class="text-sm font-semibold leading-6 text-gray-600">{translatedInterval}</span>
+        <p>
+          <span class="text-sm font-semibold leading-6 text-gray-600">{unit}</span>
+        </p>
+
+        <p>
+          <span class="text-sm font-bold tracking-tight text-gray-900">
+            {total} {translatedInterval}
+          </span>
+        </p>
         <button
           onClick={() => this.productClickedHandler(product)}
           {...(product.call_to_action || {})}

@@ -263,7 +263,7 @@ export class PricingTable {
     let labels: any[] = [];
     recurrances.forEach(interval => {
       interval.forEach(rec => {
-        const classes = classNames('cursor-pointer rounded-full px-2.5 py-1', {
+        const classes = classNames('cursor-pointer rounded-full px-20 py-4 relative', {
           'bg-blue-600 text-white': selectedRecurrence === rec,
         });
         labels.push(
@@ -279,7 +279,11 @@ export class PricingTable {
               class="sr-only"
             />
             <span>{rec.label}</span>
-            {/*eslint-disable-next-line prettier/prettier*/}
+            {rec.interval === 'year' && this._translations.discount_badge_for_yearly && (
+              <div class="text-gray-900 absolute bg-yellow-300 rounded-full text-center py-1 px-1.5 -bottom-4 whitespace-nowrap -translate-x-1/2 left-1/2 text-[0.625rem] font-semibold leading-5">
+                {this._translations.discount_badge_for_yearly}
+              </div>
+            )}
           </label>,
         );
       });
@@ -318,7 +322,7 @@ export class PricingTable {
   getTieredInputAndCurrency() {
     if (!this.hideTieredInput) {
       return (
-        <div class="mt-6">
+        <div class="mt-8">
           <div class="flex gap-x-8 justify-center">
             <tiered-input
               label={this._translations.tiered_input.label}
@@ -380,9 +384,9 @@ export class PricingTable {
      */
     return (
       <div class="bg-white font-sans bold">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-7xl px-8 lg:px-8">
           <div class="flex justify-center">
-            <fieldset class={`grid grid-cols-${recurrancesCount} gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200`}>
+            <fieldset class={`grid grid-cols-${recurrancesCount} gap-x-1 rounded-full p-1 text-center text-l font-semibold leading-5 ring-1 ring-inset ring-gray-200`}>
               {this.renderLabels(selectedRecurrence, preparedProducts.recurrances)}
             </fieldset>
           </div>

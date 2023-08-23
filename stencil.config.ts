@@ -4,6 +4,13 @@ import tailwind, { TailwindConfig, tailwindHMR } from 'stencil-tailwind-plugin';
 const twConfigurationFn = (filename: string, config: TailwindConfig): TailwindConfig => {
   return {
     ...config,
+    theme: {
+      fontSize: {
+        '2xs': '0.625rem',
+        '3xs': '0.5rem',
+        '4xs': '0.375rem',
+      }
+    },
     plugins: [
       require('@tailwindcss/forms'),
     ],

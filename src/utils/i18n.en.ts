@@ -34,5 +34,6 @@ export default {
     buy_now: 'Buy Now',
     contact_sales: 'Contact Sales',
   },
+  discount_badge_for_yearly: 'Save 16%',
   footer: '* Prices shown excludes taxes <br /> * Ask for our discounts for small businesses',
 };

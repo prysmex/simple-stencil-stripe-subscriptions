@@ -263,7 +263,7 @@ export class PricingTable {
     let labels: any[] = [];
     recurrances.forEach(interval => {
       interval.forEach(rec => {
-        const classes = classNames('cursor-pointer rounded-full px-20 py-4 relative', {
+        const classes = classNames('cursor-pointer rounded-full px-4 md:px-20 py-4 relative', {
           'bg-blue-600 text-white': selectedRecurrence === rec,
         });
         labels.push(
@@ -323,7 +323,7 @@ export class PricingTable {
     if (!this.hideTieredInput) {
       return (
         <div class="mt-8">
-          <div class="flex gap-x-8 justify-center">
+          <div class="flex gap-y-4 sm:gap-y-0 md:gap-x-8 justify-center md:flex-row flex-col">
             <tiered-input
               label={this._translations.tiered_input.label}
               quantity={this.quantity}

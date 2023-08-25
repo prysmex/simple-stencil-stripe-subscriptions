@@ -263,7 +263,7 @@ export class PricingTable {
     let labels: any[] = [];
     recurrances.forEach(interval => {
       interval.forEach(rec => {
-        const classes = classNames('cursor-pointer rounded-full px-4 md:px-20 py-4 relative', {
+        const classes = classNames('cursor-pointer rounded-full px-10 md:px-20 py-2 md:py-4 relative', {
           'bg-blue-600 text-white': selectedRecurrence === rec,
         });
         labels.push(
@@ -280,7 +280,7 @@ export class PricingTable {
             />
             <span>{rec.label}</span>
             {rec.interval === 'year' && this._translations.discount_badge_for_yearly && (
-              <div class="text-gray-900 absolute bg-yellow-300 rounded-full text-center py-1 px-1.5 -bottom-4 whitespace-nowrap -translate-x-1/2 left-1/2 text-[0.625rem] font-semibold leading-5">
+              <div class="text-gray-900 absolute bg-yellow-300 rounded-full text-center py-1 px-1.5 -bottom-[1.35rem] md:-bottom-4 whitespace-nowrap -translate-x-1/2 left-1/2 text-[0.625rem] font-semibold leading-5">
                 {this._translations.discount_badge_for_yearly}
               </div>
             )}

@@ -1287,6 +1287,7 @@
 
       const pricingTable = document.createElement('pricing-table');
       pricingTable.products = products.filter(product => product.name !== 'Enterprise');
+      pricingTable.products[1].highlight = true;
       pricingTable.prices = prices;
       pricingTable.extraProducts = products.filter(product => product.name === 'Enterprise');
       pricingTable.addEventListener('productClicked', event => {

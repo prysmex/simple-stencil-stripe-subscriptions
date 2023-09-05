@@ -38,7 +38,7 @@ export class OneProduct {
           <h3 id="tier-startup" class="text-lg font-semibold leading-8 text-blue-600">
             {this.product.name}
           </h3>
-          <p class="rounded-full bg-blue-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-blue-600">{this.translations.most_popular}</p>
+          <p class="rounded-full bg-blue-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-blue-600 whitespace-nowrap">{this.translations.most_popular}</p>
         </div>
       );
     }
@@ -154,7 +154,7 @@ export class OneProduct {
     const unit = this.translations.unit.toLowerCase();
     const highlighted = !!product.highlight;
 
-    const containerClasses = classNames('rounded-3xl p-8 ring-1 xl:p-10 ring-gray-200 h-full', {
+    const containerClasses = classNames('rounded-3xl p-8 ring-1 ring-gray-200 h-full', {
       'bg-blue-50 ring-blue-500': highlighted,
     });
 
@@ -188,9 +188,9 @@ export class OneProduct {
 
             <span
               class="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
-    -translate-x-1/2 translate-y-full opacity-0 mx-auto bottom-0 w-max whitespace-nowrap"
+    -translate-x-1/2 translate-y-full opacity-0 mx-auto bottom-0 w-10/12"
             >
-              <div class="p-2">
+              <div class="p-2 w-full">
                 <span>{this.getTooltip(priceAmount, displayPriceAmount)}</span>
               </div>
             </span>

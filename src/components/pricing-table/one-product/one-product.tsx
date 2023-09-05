@@ -14,6 +14,7 @@ export class OneProduct {
   @Prop() translations: Translations;
   @Prop() quantity = 1;
   @Prop() currency: string = 'mxn';
+  @Prop() alwaysShowMonthly: boolean = true;
   @Element() element: HTMLElement;
 
   @Event() productClicked: EventEmitter<ProductWithPrice>;
@@ -106,8 +107,27 @@ export class OneProduct {
     }
   }
 
+  get interval() {
+    return this.product.price.recurring!.interval;
+  }
+
+  getTooltip(priceAmount: number, displayPriceAmount: number | string) {
+    if (priceAmount === 0) {
+      return this.translations.free_tooltip;
+    }
+    console.log(this.interval);
+    if (this.interval === 'month') {
+      return `${displayPriceAmount} ${this.translations.unit} ${this.translations.time.month.toLocaleLowerCase?.()} x ${this.quantity} ${this.translations.units}`;
+    }
+    return `${displayPriceAmount} ${this.translations.unit} ${this.translations.time.month.toLocaleLowerCase?.()} x ${this.quantity} ${
+      this.translations.units
+    } x 12 ${this.translations.recurrances.months.toLocaleLowerCase?.()}`;
+    // {displayPriceAmount} {'*'} 12
+  }
+
   render() {
     const product = this.product;
+    const interval = this.interval;
     let priceAmount = 0;
 
     if (product.price.billing_scheme === 'tiered') {
@@ -116,8 +136,14 @@ export class OneProduct {
       priceAmount = product.price.unit_amount / 100;
     }
 
+    let displayPriceAmount: number | string = priceAmount;
+
+    if (interval === 'year' && this.alwaysShowMonthly) {
+      displayPriceAmount = priceAmount / 12;
+    }
+
     const formatter = this.getFormatter();
-    let displayPriceAmount = formatter.format(priceAmount);
+    displayPriceAmount = formatter.format(displayPriceAmount);
     const total = formatter.format(Number(priceAmount * this.quantity));
 
     const features = this.getFeatures(product);
@@ -141,9 +167,31 @@ export class OneProduct {
         </p>
 
         <p>
-          <span class="text-sm font-bold tracking-tight text-gray-900">
-            {total} {translatedInterval}
-          </span>
+          <div class="group flex relative">
+            <div class="text-sm font-bold tracking-tight text-gray-900 flex flex-row ">
+              <div>
+                {total} {translatedInterval}{' '}
+              </div>
+              {priceAmount > 0 && (
+                <svg class="w-4 ml-1" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+                  ></path>
+                </svg>
+              )}
+            </div>
+
+            <span
+              class="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute left-1/2 
+    -translate-x-1/2 translate-y-full opacity-0 mx-auto bottom-0 w-max whitespace-nowrap"
+            >
+              <div class="p-2">
+                <span>{this.getTooltip(priceAmount, displayPriceAmount)}</span>
+              </div>
+            </span>
+          </div>
         </p>
         <button
           onClick={() => this.productClickedHandler(product)}

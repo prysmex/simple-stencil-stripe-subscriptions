@@ -16,12 +16,14 @@ export namespace Components {
         "product": Product;
     }
     interface OneProduct {
+        "alwaysShowMonthly": boolean;
         "currency": string;
         "product": ProductWithPrice;
         "quantity": number;
         "translations": Translations;
     }
     interface PricingTable {
+        "alwaysShowMonthly": boolean;
         "currency": string;
         "extraProducts": Product1[];
         "hideTieredInput": boolean;
@@ -84,6 +86,7 @@ declare namespace LocalJSX {
         "product"?: Product;
     }
     interface OneProduct {
+        "alwaysShowMonthly"?: boolean;
         "currency"?: string;
         "onProductClicked"?: (event: OneProductCustomEvent<ProductWithPrice>) => void;
         "product"?: ProductWithPrice;
@@ -91,6 +94,7 @@ declare namespace LocalJSX {
         "translations"?: Translations;
     }
     interface PricingTable {
+        "alwaysShowMonthly"?: boolean;
         "currency"?: string;
         "extraProducts"?: Product1[];
         "hideTieredInput"?: boolean;

@@ -20,7 +20,9 @@ export default {
     years: 'Years',
   },
   free_trial: 'Start your {numberOfDays}-day free trial',
+  units: 'users',
   unit: 'per user',
+  free_tooltip: 'Always free',
   time: {
     day: 'per Day',
     days: 'per Days',

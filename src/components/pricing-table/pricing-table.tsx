@@ -90,6 +90,7 @@ export class PricingTable {
   @Prop() extraProducts: Product[] = [];
   @Prop() currency: string = 'mxn';
   @Prop() hideTieredInput: boolean = false;
+  @Prop() alwaysShowMonthly: boolean = true;
 
   @Prop() translations: Translations;
 
@@ -402,6 +403,7 @@ export class PricingTable {
                   lang={getComponentClosestLanguage(this.element)}
                   quantity={this.quantity}
                   currency={this.currentCurrency}
+                  alwaysShowMonthly={this.alwaysShowMonthly}
                 >
                   <div slot="callToAction">{this.getButtonLabel(product)}</div>
                 </one-product>

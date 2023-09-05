@@ -99,11 +99,11 @@ export class OneProduct {
     }
   }
 
-  getFormatter() {
+  getFormatter(maximumFractionDigits = 2) {
     if (this.currency === 'usd') {
-      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 });
+      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits });
     } else if (this.currency === 'mxn') {
-      return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 0, maximumFractionDigits: 2 });
+      return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 0, maximumFractionDigits });
     }
   }
 
@@ -115,14 +115,15 @@ export class OneProduct {
     if (priceAmount === 0) {
       return this.translations.free_tooltip;
     }
-    console.log(this.interval);
     if (this.interval === 'month') {
       return `${displayPriceAmount} ${this.translations.unit} ${this.translations.time.month.toLocaleLowerCase?.()} x ${this.quantity} ${this.translations.units}`;
     }
-    return `${displayPriceAmount} ${this.translations.unit} ${this.translations.time.month.toLocaleLowerCase?.()} x ${this.quantity} ${
+
+    const formatter = this.getFormatter();
+    let displayPriceAmounts = formatter.format(priceAmount / 12);
+    return `${displayPriceAmounts} ${this.translations.yearly_tooltip_help} ${this.translations.unit} ${this.translations.time.month.toLocaleLowerCase?.()} x ${this.quantity} ${
       this.translations.units
     } x 12 ${this.translations.recurrances.months.toLocaleLowerCase?.()}`;
-    // {displayPriceAmount} {'*'} 12
   }
 
   render() {
@@ -144,6 +145,8 @@ export class OneProduct {
 
     const formatter = this.getFormatter();
     displayPriceAmount = formatter.format(displayPriceAmount);
+    console.log(priceAmount / 12, this.quantity);
+
     const total = formatter.format(Number(priceAmount * this.quantity));
 
     const features = this.getFeatures(product);

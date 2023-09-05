@@ -17,6 +17,10 @@
       },
       "attributes": [
         {
+          "name": "always-show-monthly",
+          "description": ""
+        },
+        {
           "name": "currency",
           "description": ""
         },
@@ -33,6 +37,10 @@
         "value": ""
       },
       "attributes": [
+        {
+          "name": "always-show-monthly",
+          "description": ""
+        },
         {
           "name": "currency",
           "description": ""

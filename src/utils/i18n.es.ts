@@ -22,6 +22,7 @@ export default {
   free_trial: 'Comienza tu periodo de prueba de {numberOfDays} días',
   units: 'usuarios',
   unit: 'por usuario',
+  yearly_tooltip_help: '(los decimales pueden variar)',
   free_tooltip: 'Siempre gratis',
   time: {
     day: 'por Día',

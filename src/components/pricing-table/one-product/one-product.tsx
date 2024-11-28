@@ -145,7 +145,6 @@ export class OneProduct {
 
     const formatter = this.getFormatter();
     displayPriceAmount = formatter.format(displayPriceAmount);
-    console.log(priceAmount / 12, this.quantity);
 
     const total = formatter.format(Number(priceAmount * this.quantity));
 

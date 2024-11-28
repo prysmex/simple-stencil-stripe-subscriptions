@@ -158,6 +158,8 @@ export class OneProduct {
       'bg-blue-50 ring-blue-500': highlighted,
     });
 
+    const idForCallToAction = `${(product.name || '').replace(' ', '')}-${product.id}-call-to-action`;
+
     return (
       <div class={containerClasses}>
         {this.getHeader()}
@@ -197,6 +199,7 @@ export class OneProduct {
         </p>
         <button
           onClick={() => this.productClickedHandler(product)}
+          id={idForCallToAction}
           {...(product.call_to_action || {})}
           class="mt-6 w-full block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white shadow-sm hover:bg-blue-500 focus-visible:outline-blue-600 disabled:opacity-50"
         >

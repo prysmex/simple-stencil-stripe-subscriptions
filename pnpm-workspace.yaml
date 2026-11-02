@@ -1,0 +1,6 @@
+# stencil-tailwind-plugin depends on this package straight from git, which pnpm only builds when allowed
+# (pnpm 11 reads allowBuilds, pnpm 10 onlyBuiltDependencies)
+allowBuilds:
+  postcss-combine-duplicated-selectors@git+https://github.com/poimen/postcss-combine-duplicated-selectors.git#690c03192aa5c61b674ff9e7b8e6016edb56df53: true
+onlyBuiltDependencies:
+  - postcss-combine-duplicated-selectors@git+https://github.com/poimen/postcss-combine-duplicated-selectors.git#690c03192aa5c61b674ff9e7b8e6016edb56df53

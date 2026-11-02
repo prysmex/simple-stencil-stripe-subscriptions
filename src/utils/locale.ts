@@ -13,13 +13,20 @@ export function getComponentClosestLanguage(element: HTMLElement): string {
   return closestElement ? closestElement.lang : 'en';
 }
 
-export function getLocaleComponentStrings(element: HTMLElement) {
+export function getLocaleComponentStrings(element: HTMLElement): Translations {
   let componentLanguage = getComponentClosestLanguage(element);
+  // 'es-MX' -> 'es'; unsupported languages fall back to English
+  let baseLanguage = componentLanguage.toLowerCase().split('-')[0];
 
-  return locales[componentLanguage];
+  return locales[baseLanguage] || locales.en;
 }
 
 export function replaceSubstringsWithObject(str, obj) {
-  const regex = new RegExp(Object.keys(obj).map(key => `\\{${key}\\}`).join("|"), "gi");
-  return str.replace(regex, (match) => obj[match.substring(1, match.length-1)]);
+  const regex = new RegExp(
+    Object.keys(obj)
+      .map(key => `\\{${key}\\}`)
+      .join('|'),
+    'gi',
+  );
+  return str.replace(regex, match => obj[match.substring(1, match.length - 1)]);
 }

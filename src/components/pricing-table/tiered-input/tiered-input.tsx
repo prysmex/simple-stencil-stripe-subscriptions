@@ -5,9 +5,9 @@ import { Translations } from '../../../utils/locale';
 @Component({
   tag: 'tiered-input',
   styleUrl: 'tiered-input.css',
-  shadow: true,
+  scoped: true,
 })
-export class OneProduct {
+export class TieredInput {
   @Prop() label: Translations['tiered_input']['label'];
   @Prop() quantity = 1;
   @Prop() changeQuantity: (e) => void;

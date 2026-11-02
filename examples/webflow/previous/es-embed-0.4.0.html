@@ -1,0 +1,77 @@
+<script
+	type="module"
+	src="https://cdn.jsdelivr.net/npm/simple-stencil-stripe-subscriptions@0.4.0/dist/simple-stencil-stripe-subscriptions/simple-stencil-stripe-subscriptions.esm.js"
+></script>
+<script>
+	const currentURL = new URL(window.location.href);
+  const DEFAULT_API_URL = 'https://b.prysmex.com';
+  const API_ENDPOINT = '/api/billing/plans';
+  const hostURL = currentURL.searchParams.get('host');
+  let apiURL = DEFAULT_API_URL;
+  
+  if(hostURL) {
+    apiURL = hostURL;
+  }
+  
+	fetch(`${apiURL}${API_ENDPOINT}`)
+		.then((r) => r.json())
+		.then((data) => {
+			const { products, prices } = data;
+			const pricingTable = document.createElement('pricing-table');
+			pricingTable.setAttribute('lang', 'es');
+			const enterprisePlan = products.data.find((product) => product.name === 'Enterprise');
+			const freePlan = products.data.find((product) => product.name === 'Free');
+			const teamsPlan = products.data.find((product) => product.name === 'Teams');
+			const teamsProPlan = products.data.find((product) => product.name === 'Teams Pro');
+
+			pricingTable.products = products.data.filter((product) => product.name !== 'Enterprise');
+			pricingTable.prices = prices.data;
+			pricingTable.extraProducts = products.data.filter((product) => product.name === 'Enterprise');
+
+			//
+			enterprisePlan.price_label = 'Personaliza';
+			enterprisePlan.interval_label = 'usuarios a la medida';
+
+			//We highlight teamsPlan
+			teamsProPlan.highlight = true;
+
+			//We place labels to call_to_actions
+			freePlan.call_to_action = { label: 'Empieza ahora' };
+			products.data
+				.filter((product) => product.name !== 'Enterprise' && product.name !== 'Free')
+				.forEach((product) => {
+					product.call_to_action = { label: 'Comienza 14 días de prueba' };
+				});
+
+			pricingTable.currency = 'mxn';
+      pricingTable.translations = {
+        unit: 'por usuario full seat'
+      }
+
+			pricingTable.addEventListener('productClicked', (event) => {
+				if (enterprisePlan.id === event.detail.id) {
+					window.location.href = '/es/solicita-prueba-prysmex';
+				}
+				const currentURL = new URL(window.location.href);
+				const REGISTER_PATH = '/register';
+				const DEFAULT_BASE_URL = 'https://app.prysmex.com';
+				let finalURL = DEFAULT_BASE_URL;
+
+				const originParam = currentURL.searchParams.get('origin');
+
+				if (originParam) {
+					finalURL = originParam;
+				}
+
+				finalURL = `${finalURL}${REGISTER_PATH}`;
+
+				if (freePlan.id === event.detail.price.product) {
+					window.open(finalURL, '_self');
+				} else {
+					window.open(`${finalURL}?qs=(price_id:'${event.detail.price.id}')`, '_self');
+				}
+			});
+
+			document.getElementById('pricing-table-container').appendChild(pricingTable);
+		});
+</script>

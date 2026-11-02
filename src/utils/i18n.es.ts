@@ -38,6 +38,10 @@ export default {
     buy_now: 'Comprar Ahora',
     contact_sales: 'Contactar a Ventas',
   },
+  recommended: {
+    badge: 'Recomendado',
+    message: 'Para equipos de {seats} usuarios o más, te recomendamos hablar con nosotros.',
+  },
   discount_badge_for_yearly: 'Ahorra 16%',
   footer: '* Los precios no incluyen impuestos <br /> * Pregunta por nuestros descuentos para negocios pequeños',
 };

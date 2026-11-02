@@ -1,6 +1,6 @@
 {
   "name": "simple-stencil-stripe-subscriptions",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Pricing table for Stripe Subscriptions",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -19,34 +19,42 @@
   },
   "files": [
     "dist/",
-    "loader/"
+    "loader/",
+    "hydrate/",
+    "prerender/",
+    "bin/"
   ],
   "scripts": {
     "build": "stencil build --docs",
     "start": "stencil build --dev --watch --serve",
-    "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll",
+    "test": "stencil-test --prod",
     "generate": "stencil generate",
-    "prepublish": "pnpm build"
+    "prepublishOnly": "pnpm build",
+    "test.watch": "stencil-test --watch",
+    "prerender.example": "node bin/prerender.mjs examples/prerender/pricing.prerender.mjs",
+    "example.standalone": "node examples/standalone/build.mjs",
+    "example.webflow": "node examples/webflow/build.mjs",
+    "check.stripe": "node scripts/check-stripe-totals.mjs",
+    "webflow": "pnpm build && node examples/webflow/build.mjs"
   },
   "dependencies": {
-    "@stencil/core": "^3.0.0",
-    "@types/lodash-es": "^4.17.7",
-    "classnames": "^2.3.2",
-    "global": "^4.4.0",
-    "lodash-es": "4.17.21",
-    "stencil": "^0.0.5",
-    "stencil-tailwind-plugin": "^1.7.0",
-    "tailwindcss": "^3.3.2",
-    "@tailwindcss/forms": "0.5.4",
-    "workbox-build": "4.3.1"
+    "classnames": "^2.5.1",
+    "lodash-es": "^4.18.1"
   },
   "devDependencies": {
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.11",
-    "jest": "^27.5.1",
-    "jest-cli": "^27.5.1",
-    "puppeteer": "^19.5.2"
+    "@stencil/core": "^4.45.2",
+    "@stencil/vitest": "^1.16.1",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^24.0.0",
+    "stencil-tailwind-plugin": "^2.0.6",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "bin": {
+    "pricing-table-prerender": "bin/prerender.mjs"
+  }
 }

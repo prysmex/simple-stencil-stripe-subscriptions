@@ -1,6 +1,7 @@
 //eslint-disable-next-line no-unused-vars
-import { Component, Prop, Element, h, State, Watch } from '@stencil/core';
+import { Component, Prop, Element, h, State, Watch, AttrDeserialize } from '@stencil/core';
 import { getComponentClosestLanguage, getLocaleComponentStrings, replaceSubstringsWithObject, Translations } from '../../utils/locale';
+import { parseJsonAttribute } from '../../utils/utils';
 import classNames from 'classnames';
 import { merge } from 'lodash-es';
 
@@ -15,7 +16,7 @@ export interface Tier {
   flat_amount_decimal?: string;
   unit_amount?: number;
   unit_amount_decimal?: string;
-  up_to?: number;
+  up_to?: number | 'inf' | null;
 }
 
 export interface Price {
@@ -91,6 +92,10 @@ export class PricingTable {
   @Prop() currency: string = 'mxn';
   @Prop() hideTieredInput: boolean = false;
   @Prop() alwaysShowMonthly: boolean = true;
+  /**
+   * From this many seats on, the extra products (e.g. Enterprise) light up as the recommended option
+   */
+  @Prop() recommendExtraProductsFrom?: number;
 
   @Prop() translations: Translations;
 
@@ -102,10 +107,29 @@ export class PricingTable {
 
   preparedData: PreparedData;
 
+  /**
+   * Object props can also be passed as JSON attributes, e.g. `<pricing-table products='[...]'>`.
+   * This lets the data travel inside the server-rendered HTML so the client hydrates with it.
+   */
+  @AttrDeserialize('products')
+  @AttrDeserialize('prices')
+  @AttrDeserialize('extraProducts')
+  @AttrDeserialize('translations')
+  parseJsonAttribute(value: unknown) {
+    return parseJsonAttribute(value);
+  }
+
   @Watch('products')
+  @Watch('prices')
   productsChanged() {
+    // attribute values can arrive before componentWillLoad, which prepares the initial data
+    if (!this._translations) {
+      return;
+    }
     const { products, _translations: translations, prices } = this;
+    const previous = this.selectedRecurrence;
     this.preparedData = this.prepareData({ products, translations, prices });
+    this.selectedRecurrence = this.findRecurrence(previous) || this.getFirst();
   }
 
   @Watch('currency')
@@ -118,12 +142,13 @@ export class PricingTable {
     if (!this.translations) {
       this._translations = defaultTranslations;
     } else {
-      this._translations = merge<Translations, Partial<Translations>>(defaultTranslations, this.translations);
+      this._translations = merge<{}, Translations, Partial<Translations>>({}, defaultTranslations, this.translations);
     }
 
+    // prepareData sorts products using the current currency, so set it first
+    this.currentCurrency = this.currency;
     this.preparedData = this.prepareData({ products: this.products, translations: this._translations, prices: this.prices });
     this.selectedRecurrence = this.getFirst();
-    this.currentCurrency = this.currency;
   }
 
   generateRecurrenceLabel(recurrance: Partial<PreparedRecurrence>, translations: Translations) {
@@ -297,6 +322,13 @@ export class PricingTable {
     return this.preparedData.recurrances[0]?.[0];
   }
 
+  findRecurrence(recurrence?: PreparedRecurrence) {
+    if (!recurrence) {
+      return undefined;
+    }
+    return this.preparedData.recurrances.flat().find(r => r.interval === recurrence.interval && r.interval_count === recurrence.interval_count);
+  }
+
   getButtonLabel(product: ProductWithPrice) {
     const { _translations: translations } = this;
 
@@ -362,6 +394,11 @@ export class PricingTable {
     }
   }
 
+  isExtraProductRecommended() {
+    const threshold = Number(this.recommendExtraProductsFrom);
+    return threshold > 0 && this.quantity >= threshold;
+  }
+
   getFooter() {
     if (this._translations.footer) {
       return <p class="mt-6 text-xs text-gray-500 text-center" innerHTML={this._translations.footer}></p>;
@@ -385,6 +422,16 @@ export class PricingTable {
      */
     return (
       <div class="bg-white font-sans bold">
+        {/* the cards' check mark, drawn once and reused by every feature (keeps the prerendered HTML small) */}
+        <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
+          <symbol id="pricing-table-check" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+              clip-rule="evenodd"
+            />
+          </symbol>
+        </svg>
         <div class="mx-auto max-w-7xl px-8 lg:px-8">
           <div class="flex justify-center">
             <fieldset class={`grid grid-cols-${recurrancesCount} gap-x-1 rounded-full p-1 text-center text-l font-semibold leading-5 ring-1 ring-inset ring-gray-200`}>
@@ -404,17 +451,24 @@ export class PricingTable {
                   quantity={this.quantity}
                   currency={this.currentCurrency}
                   alwaysShowMonthly={this.alwaysShowMonthly}
-                >
-                  <div slot="callToAction">{this.getButtonLabel(product)}</div>
-                </one-product>
+                  callToActionLabel={this.getButtonLabel(product)}
+                ></one-product>
               );
             })}
 
             {this.extraProducts.map(product => {
+              const recommended = this.isExtraProductRecommended();
               return (
-                <highlighted-product product={product} lang={getComponentClosestLanguage(this.element)}>
-                  <div slot="callToAction">{product.call_to_action?.label ? product.call_to_action?.label : translations?.actions.contact_sales}</div>
-                </highlighted-product>
+                <highlighted-product
+                  // on small screens the cards stack, so bring the recommendation to the top
+                  class={classNames({ 'order-first lg:order-none': recommended })}
+                  product={product}
+                  lang={getComponentClosestLanguage(this.element)}
+                  recommended={recommended}
+                  recommendedBadge={translations.recommended.badge}
+                  recommendedMessage={replaceSubstringsWithObject(translations.recommended.message, { seats: String(this.recommendExtraProductsFrom) })}
+                  callToActionLabel={product.call_to_action?.label ? product.call_to_action?.label : translations?.actions.contact_sales}
+                ></highlighted-product>
               );
             })}
           </div>

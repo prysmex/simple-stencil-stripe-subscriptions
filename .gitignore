@@ -1,6 +1,7 @@
 dist/
 www/
 loader/
+hydrate/
 
 *~
 *.sw[mnpcod]
@@ -24,3 +25,8 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 .env
+examples/prerender/.generated/
+examples/standalone/pricing-demo.html
+examples/standalone/*.png
+examples/webflow/out/
+examples/webflow/.compare/

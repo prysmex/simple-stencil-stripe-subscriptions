@@ -1,0 +1,826 @@
+{
+  "products": [
+    {
+      "id": "prod_OS4AqHKXwiNPaO",
+      "object": "product",
+      "active": true,
+      "name": "Free",
+      "description": null,
+      "metadata": {
+        "description_en": "Description",
+        "features_en": "Hey;Hey;Hey"
+      }
+    },
+    {
+      "id": "prod_OS4BCNfw5QpjYy",
+      "object": "product",
+      "active": true,
+      "name": "Enterprise",
+      "description": null,
+      "metadata": {
+        "description_en": "Description",
+        "features_en": "Hey;Hey;Hey"
+      }
+    },
+    {
+      "id": "prod_OS4CFuYa7RqHkL",
+      "object": "product",
+      "active": true,
+      "name": "Teams Pro",
+      "description": null,
+      "metadata": {
+        "description_en": "Description",
+        "features_en": "Hey;Hey;Hey"
+      }
+    },
+    {
+      "id": "prod_OS4CaS6Km2zyGS",
+      "object": "product",
+      "active": true,
+      "name": "Teams",
+      "description": null,
+      "metadata": {
+        "description_en": "Description",
+        "features_en": "Hey;Hey;Hey"
+      }
+    }
+  ],
+  "prices": [
+    {
+      "id": "price_1NfA4XJwhrNkNEurJVRNHMwn",
+      "object": "price",
+      "active": true,
+      "billing_scheme": "tiered",
+      "currency": "mxn",
+      "product": "prod_OS4CFuYa7RqHkL",
+      "recurring": {
+        "interval": "year",
+        "interval_count": 1,
+        "trial_period_days": null
+      },
+      "tiers_mode": "graduated",
+      "type": "recurring",
+      "unit_amount": null,
+      "currency_options": {
+        "mxn": {
+          "unit_amount": null,
+          "tiers": [
+            {
+              "up_to": 14,
+              "unit_amount": 949000,
+              "flat_amount": null
+            },
+            {
+              "up_to": 24,
+              "unit_amount": 721240,
+              "flat_amount": null
+            },
+            {
+              "up_to": 49,
+              "unit_amount": 575090,
+              "flat_amount": null
+            },
+            {
+              "up_to": 74,
+              "unit_amount": 487030,
+              "flat_amount": null
+            },
+            {
+              "up_to": 99,
+              "unit_amount": 335190,
+              "flat_amount": null
+            },
+            {
+              "up_to": 132,
+              "unit_amount": 446030,
+              "flat_amount": null
+            },
+            {
+              "up_to": 165,
+              "unit_amount": 341640,
+              "flat_amount": null
+            },
+            {
+              "up_to": 199,
+              "unit_amount": 326850,
+              "flat_amount": null
+            },
+            {
+              "up_to": 249,
+              "unit_amount": 275970,
+              "flat_amount": null
+            },
+            {
+              "up_to": 299,
+              "unit_amount": 313550,
+              "flat_amount": null
+            },
+            {
+              "up_to": 499,
+              "unit_amount": 218550,
+              "flat_amount": null
+            },
+            {
+              "up_to": 999,
+              "unit_amount": 161440,
+              "flat_amount": null
+            },
+            {
+              "up_to": null,
+              "unit_amount": 132920,
+              "flat_amount": null
+            }
+          ]
+        },
+        "usd": {
+          "unit_amount": null,
+          "tiers": [
+            {
+              "up_to": 14,
+              "unit_amount": 49000,
+              "flat_amount": null
+            },
+            {
+              "up_to": 24,
+              "unit_amount": 37200,
+              "flat_amount": null
+            },
+            {
+              "up_to": 49,
+              "unit_amount": 29700,
+              "flat_amount": null
+            },
+            {
+              "up_to": 74,
+              "unit_amount": 25100,
+              "flat_amount": null
+            },
+            {
+              "up_to": 99,
+              "unit_amount": 17300,
+              "flat_amount": null
+            },
+            {
+              "up_to": 132,
+              "unit_amount": 23000,
+              "flat_amount": null
+            },
+            {
+              "up_to": 165,
+              "unit_amount": 17600,
+              "flat_amount": null
+            },
+            {
+              "up_to": 199,
+              "unit_amount": 16900,
+              "flat_amount": null
+            },
+            {
+              "up_to": 249,
+              "unit_amount": 14200,
+              "flat_amount": null
+            },
+            {
+              "up_to": 299,
+              "unit_amount": 16200,
+              "flat_amount": null
+            },
+            {
+              "up_to": 499,
+              "unit_amount": 11300,
+              "flat_amount": null
+            },
+            {
+              "up_to": 999,
+              "unit_amount": 8300,
+              "flat_amount": null
+            },
+            {
+              "up_to": null,
+              "unit_amount": 6900,
+              "flat_amount": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "price_1NfA4XJwhrNkNEurcpxQ0ybb",
+      "object": "price",
+      "active": true,
+      "billing_scheme": "tiered",
+      "currency": "mxn",
+      "product": "prod_OS4CFuYa7RqHkL",
+      "recurring": {
+        "interval": "month",
+        "interval_count": 1,
+        "trial_period_days": null
+      },
+      "tiers_mode": "graduated",
+      "type": "recurring",
+      "unit_amount": null,
+      "currency_options": {
+        "mxn": {
+          "unit_amount": null,
+          "tiers": [
+            {
+              "up_to": 14,
+              "unit_amount": 94900,
+              "flat_amount": null
+            },
+            {
+              "up_to": 24,
+              "unit_amount": 72124,
+              "flat_amount": null
+            },
+            {
+              "up_to": 49,
+              "unit_amount": 57509,
+              "flat_amount": null
+            },
+            {
+              "up_to": 74,
+              "unit_amount": 48703,
+              "flat_amount": null
+            },
+            {
+              "up_to": 99,
+              "unit_amount": 33519,
+              "flat_amount": null
+            },
+            {
+              "up_to": 132,
+              "unit_amount": 44603,
+              "flat_amount": null
+            },
+            {
+              "up_to": 165,
+              "unit_amount": 34164,
+              "flat_amount": null
+            },
+            {
+              "up_to": 199,
+              "unit_amount": 32685,
+              "flat_amount": null
+            },
+            {
+              "up_to": 249,
+              "unit_amount": 27597,
+              "flat_amount": null
+            },
+            {
+              "up_to": 299,
+              "unit_amount": 31355,
+              "flat_amount": null
+            },
+            {
+              "up_to": 499,
+              "unit_amount": 21855,
+              "flat_amount": null
+            },
+            {
+              "up_to": 999,
+              "unit_amount": 16144,
+              "flat_amount": null
+            },
+            {
+              "up_to": null,
+              "unit_amount": 13292,
+              "flat_amount": null
+            }
+          ]
+        },
+        "usd": {
+          "unit_amount": null,
+          "tiers": [
+            {
+              "up_to": 14,
+              "unit_amount": 4900,
+              "flat_amount": null
+            },
+            {
+              "up_to": 24,
+              "unit_amount": 3720,
+              "flat_amount": null
+            },
+            {
+              "up_to": 49,
+              "unit_amount": 2970,
+              "flat_amount": null
+            },
+            {
+              "up_to": 74,
+              "unit_amount": 2510,
+              "flat_amount": null
+            },
+            {
+              "up_to": 99,
+              "unit_amount": 1730,
+              "flat_amount": null
+            },
+            {
+              "up_to": 132,
+              "unit_amount": 2300,
+              "flat_amount": null
+            },
+            {
+              "up_to": 165,
+              "unit_amount": 1760,
+              "flat_amount": null
+            },
+            {
+              "up_to": 199,
+              "unit_amount": 1690,
+              "flat_amount": null
+            },
+            {
+              "up_to": 249,
+              "unit_amount": 1420,
+              "flat_amount": null
+            },
+            {
+              "up_to": 299,
+              "unit_amount": 1620,
+              "flat_amount": null
+            },
+            {
+              "up_to": 499,
+              "unit_amount": 1130,
+              "flat_amount": null
+            },
+            {
+              "up_to": 999,
+              "unit_amount": 830,
+              "flat_amount": null
+            },
+            {
+              "up_to": null,
+              "unit_amount": 690,
+              "flat_amount": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "price_1NfA44JwhrNkNEur3xWQ23Qc",
+      "object": "price",
+      "active": true,
+      "billing_scheme": "tiered",
+      "currency": "mxn",
+      "product": "prod_OS4CaS6Km2zyGS",
+      "recurring": {
+        "interval": "year",
+        "interval_count": 1,
+        "trial_period_days": null
+      },
+      "tiers_mode": "graduated",
+      "type": "recurring",
+      "unit_amount": null,
+      "currency_options": {
+        "mxn": {
+          "unit_amount": null,
+          "tiers": [
+            {
+              "up_to": 14,
+              "unit_amount": 559000,
+              "flat_amount": null
+            },
+            {
+              "up_to": 24,
+              "unit_amount": 424800,
+              "flat_amount": null
+            },
+            {
+              "up_to": 49,
+              "unit_amount": 383600,
+              "flat_amount": null
+            },
+            {
+              "up_to": 74,
+              "unit_amount": 343300,
+              "flat_amount": null
+            },
+            {
+              "up_to": 99,
+              "unit_amount": 278400,
+              "flat_amount": null
+            },
+            {
+              "up_to": 132,
+              "unit_amount": 368800,
+              "flat_amount": null
+            },
+            {
+              "up_to": 165,
+              "unit_amount": 281600,
+              "flat_amount": null
+            },
+            {
+              "up_to": 199,
+              "unit_amount": 272800,
+              "flat_amount": null
+            },
+            {
+              "up_to": 249,
+              "unit_amount": 241600,
+              "flat_amount": null
+            },
+            {
+              "up_to": 299,
+              "unit_amount": 258900,
+              "flat_amount": null
+            },
+            {
+              "up_to": 399,
+              "unit_amount": 170000,
+              "flat_amount": null
+            },
+            {
+              "up_to": 499,
+              "unit_amount": 169700,
+              "flat_amount": null
+            },
+            {
+              "up_to": 749,
+              "unit_amount": 128600,
+              "flat_amount": null
+            },
+            {
+              "up_to": 999,
+              "unit_amount": 120700,
+              "flat_amount": null
+            },
+            {
+              "up_to": null,
+              "unit_amount": 99600,
+              "flat_amount": null
+            }
+          ]
+        },
+        "usd": {
+          "unit_amount": null,
+          "tiers": [
+            {
+              "up_to": 14,
+              "unit_amount": 29000,
+              "flat_amount": null
+            },
+            {
+              "up_to": 24,
+              "unit_amount": 22000,
+              "flat_amount": null
+            },
+            {
+              "up_to": 49,
+              "unit_amount": 19900,
+              "flat_amount": null
+            },
+            {
+              "up_to": 74,
+              "unit_amount": 17800,
+              "flat_amount": null
+            },
+            {
+              "up_to": 99,
+              "unit_amount": 14400,
+              "flat_amount": null
+            },
+            {
+              "up_to": 132,
+              "unit_amount": 19100,
+              "flat_amount": null
+            },
+            {
+              "up_to": 165,
+              "unit_amount": 14600,
+              "flat_amount": null
+            },
+            {
+              "up_to": 199,
+              "unit_amount": 14200,
+              "flat_amount": null
+            },
+            {
+              "up_to": 249,
+              "unit_amount": 12500,
+              "flat_amount": null
+            },
+            {
+              "up_to": 299,
+              "unit_amount": 13400,
+              "flat_amount": null
+            },
+            {
+              "up_to": 399,
+              "unit_amount": 8800,
+              "flat_amount": null
+            },
+            {
+              "up_to": 499,
+              "unit_amount": 8800,
+              "flat_amount": null
+            },
+            {
+              "up_to": 749,
+              "unit_amount": 6700,
+              "flat_amount": null
+            },
+            {
+              "up_to": 999,
+              "unit_amount": 6300,
+              "flat_amount": null
+            },
+            {
+              "up_to": null,
+              "unit_amount": 5200,
+              "flat_amount": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "price_1NfA43JwhrNkNEurUwMwKiRz",
+      "object": "price",
+      "active": true,
+      "billing_scheme": "tiered",
+      "currency": "mxn",
+      "product": "prod_OS4CaS6Km2zyGS",
+      "recurring": {
+        "interval": "month",
+        "interval_count": 1,
+        "trial_period_days": null
+      },
+      "tiers_mode": "graduated",
+      "type": "recurring",
+      "unit_amount": null,
+      "currency_options": {
+        "mxn": {
+          "unit_amount": null,
+          "tiers": [
+            {
+              "up_to": 14,
+              "unit_amount": 55900,
+              "flat_amount": null
+            },
+            {
+              "up_to": 24,
+              "unit_amount": 42480,
+              "flat_amount": null
+            },
+            {
+              "up_to": 49,
+              "unit_amount": 38360,
+              "flat_amount": null
+            },
+            {
+              "up_to": 74,
+              "unit_amount": 34330,
+              "flat_amount": null
+            },
+            {
+              "up_to": 99,
+              "unit_amount": 27840,
+              "flat_amount": null
+            },
+            {
+              "up_to": 132,
+              "unit_amount": 36880,
+              "flat_amount": null
+            },
+            {
+              "up_to": 165,
+              "unit_amount": 28160,
+              "flat_amount": null
+            },
+            {
+              "up_to": 199,
+              "unit_amount": 27280,
+              "flat_amount": null
+            },
+            {
+              "up_to": 249,
+              "unit_amount": 24160,
+              "flat_amount": null
+            },
+            {
+              "up_to": 299,
+              "unit_amount": 25890,
+              "flat_amount": null
+            },
+            {
+              "up_to": 399,
+              "unit_amount": 17000,
+              "flat_amount": null
+            },
+            {
+              "up_to": 499,
+              "unit_amount": 16970,
+              "flat_amount": null
+            },
+            {
+              "up_to": 749,
+              "unit_amount": 12860,
+              "flat_amount": null
+            },
+            {
+              "up_to": 999,
+              "unit_amount": 12070,
+              "flat_amount": null
+            },
+            {
+              "up_to": null,
+              "unit_amount": 9960,
+              "flat_amount": null
+            }
+          ]
+        },
+        "usd": {
+          "unit_amount": null,
+          "tiers": [
+            {
+              "up_to": 14,
+              "unit_amount": 2900,
+              "flat_amount": null
+            },
+            {
+              "up_to": 24,
+              "unit_amount": 2200,
+              "flat_amount": null
+            },
+            {
+              "up_to": 49,
+              "unit_amount": 1990,
+              "flat_amount": null
+            },
+            {
+              "up_to": 74,
+              "unit_amount": 1780,
+              "flat_amount": null
+            },
+            {
+              "up_to": 99,
+              "unit_amount": 1440,
+              "flat_amount": null
+            },
+            {
+              "up_to": 132,
+              "unit_amount": 1910,
+              "flat_amount": null
+            },
+            {
+              "up_to": 165,
+              "unit_amount": 1460,
+              "flat_amount": null
+            },
+            {
+              "up_to": 199,
+              "unit_amount": 1420,
+              "flat_amount": null
+            },
+            {
+              "up_to": 249,
+              "unit_amount": 1250,
+              "flat_amount": null
+            },
+            {
+              "up_to": 299,
+              "unit_amount": 1340,
+              "flat_amount": null
+            },
+            {
+              "up_to": 399,
+              "unit_amount": 880,
+              "flat_amount": null
+            },
+            {
+              "up_to": 499,
+              "unit_amount": 880,
+              "flat_amount": null
+            },
+            {
+              "up_to": 749,
+              "unit_amount": 670,
+              "flat_amount": null
+            },
+            {
+              "up_to": 999,
+              "unit_amount": 630,
+              "flat_amount": null
+            },
+            {
+              "up_to": null,
+              "unit_amount": 520,
+              "flat_amount": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "price_1NfA3IJwhrNkNEur8VpIoTI6",
+      "object": "price",
+      "active": true,
+      "billing_scheme": "per_unit",
+      "currency": "mxn",
+      "product": "prod_OS4BCNfw5QpjYy",
+      "recurring": {
+        "interval": "year",
+        "interval_count": 1,
+        "trial_period_days": null
+      },
+      "tiers_mode": null,
+      "type": "recurring",
+      "unit_amount": 0,
+      "currency_options": {
+        "mxn": {
+          "unit_amount": 0,
+          "tiers": []
+        },
+        "usd": {
+          "unit_amount": 0,
+          "tiers": []
+        }
+      }
+    },
+    {
+      "id": "price_1NfA3IJwhrNkNEur7sfZo1iW",
+      "object": "price",
+      "active": true,
+      "billing_scheme": "per_unit",
+      "currency": "mxn",
+      "product": "prod_OS4BCNfw5QpjYy",
+      "recurring": {
+        "interval": "month",
+        "interval_count": 1,
+        "trial_period_days": null
+      },
+      "tiers_mode": null,
+      "type": "recurring",
+      "unit_amount": 0,
+      "currency_options": {
+        "mxn": {
+          "unit_amount": 0,
+          "tiers": []
+        },
+        "usd": {
+          "unit_amount": 0,
+          "tiers": []
+        }
+      }
+    },
+    {
+      "id": "price_1NfA2eJwhrNkNEurYxGJlwbT",
+      "object": "price",
+      "active": true,
+      "billing_scheme": "per_unit",
+      "currency": "mxn",
+      "product": "prod_OS4AqHKXwiNPaO",
+      "recurring": {
+        "interval": "year",
+        "interval_count": 1,
+        "trial_period_days": null
+      },
+      "tiers_mode": null,
+      "type": "recurring",
+      "unit_amount": 0,
+      "currency_options": {
+        "mxn": {
+          "unit_amount": 0,
+          "tiers": []
+        },
+        "usd": {
+          "unit_amount": 0,
+          "tiers": []
+        }
+      }
+    },
+    {
+      "id": "price_1NfA2dJwhrNkNEurVA6HLkl9",
+      "object": "price",
+      "active": true,
+      "billing_scheme": "per_unit",
+      "currency": "mxn",
+      "product": "prod_OS4AqHKXwiNPaO",
+      "recurring": {
+        "interval": "month",
+        "interval_count": 1,
+        "trial_period_days": null
+      },
+      "tiers_mode": null,
+      "type": "recurring",
+      "unit_amount": 0,
+      "currency_options": {
+        "mxn": {
+          "unit_amount": 0,
+          "tiers": []
+        },
+        "usd": {
+          "unit_amount": 0,
+          "tiers": []
+        }
+      }
+    }
+  ]
+}

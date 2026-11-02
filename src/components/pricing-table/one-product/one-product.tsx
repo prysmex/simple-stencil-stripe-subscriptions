@@ -2,12 +2,13 @@
 import { Component, Prop, h, Element, Event, EventEmitter } from '@stencil/core';
 import { ProductWithPrice } from '../pricing-table';
 import { Translations } from '../../../utils/locale';
+import { seatPrice } from '../../../utils/pricing';
 import classNames from 'classnames';
 
 @Component({
   tag: 'one-product',
   styleUrl: 'one-product.css',
-  shadow: true,
+  scoped: true,
 })
 export class OneProduct {
   @Prop() product: ProductWithPrice;
@@ -15,6 +16,7 @@ export class OneProduct {
   @Prop() quantity = 1;
   @Prop() currency: string = 'mxn';
   @Prop() alwaysShowMonthly: boolean = true;
+  @Prop() callToActionLabel?: string;
   @Element() element: HTMLElement;
 
   @Event() productClicked: EventEmitter<ProductWithPrice>;
@@ -35,7 +37,7 @@ export class OneProduct {
     if (this.product.highlight) {
       return (
         <div class="flex items-center justify-between gap-x-4">
-          <h3 id="tier-startup" class="text-lg font-semibold leading-8 text-blue-600">
+          <h3 id={`tier-${this.product.id}`} class="text-lg font-semibold leading-8 text-blue-600">
             {this.product.name}
           </h3>
           <p class="rounded-full bg-blue-600/10 px-2.5 py-1 text-xs font-semibold leading-5 text-blue-600 whitespace-nowrap">{this.translations.most_popular}</p>
@@ -43,53 +45,10 @@ export class OneProduct {
       );
     }
     return (
-      <h3 id="tier-startup" class="text-lg font-semibold leading-8 text-gray-900">
+      <h3 id={`tier-${this.product.id}`} class="text-lg font-semibold leading-8 text-gray-900">
         {this.product.name}
       </h3>
     );
-  }
-
-  calculateTotalCostFor(seats: number) {
-    const tiers = this.product.price.currency_options[this.currency].tiers!;
-
-    let totalCost = 0;
-    //Agregate graduated pricing
-    for (let i = 0; i < tiers.length; i++) {
-      const tier = tiers[i]!;
-      const previousTier = tiers[i - 1];
-      const previousTierUpTo = previousTier && i > 0 ? (typeof previousTier.up_to === 'string' && previousTier.up_to === 'inf' ? 0 : previousTier.up_to) : 0;
-
-      if ((typeof tier.up_to === 'string' && tier.up_to === 'inf') || seats < tier.up_to) {
-        totalCost += (seats - previousTierUpTo) * tier.unit_amount;
-        break;
-      } else {
-        totalCost += (tier.up_to - previousTierUpTo) * tier.unit_amount;
-      }
-    }
-
-    return totalCost;
-  }
-
-  calculateTierPrice() {
-    if (this.product.price.tiers_mode === 'graduated') {
-      const tiers = this.product.price.currency_options[this.currency].tiers!;
-      let tierWithHigherUnitAmount = tiers.find(tier => this.quantity <= tier.up_to);
-      if (!tierWithHigherUnitAmount) {
-        const infTier = tiers.find(tier => {
-          const a = typeof tier.up_to === 'string' && tier.up_to === 'inf';
-          const b = !tier.up_to && tier.up_to !== 0;
-          return a || b;
-        });
-        return Number(infTier.unit_amount / 100);
-      }
-      return Number(this.calculateTotalCostFor(this.quantity) / this.quantity / 100);
-    } else {
-      const tiers = this.product.price.currency_options[this.currency].tiers!;
-      const tier = tiers.find(tier => this.quantity <= tier.up_to);
-      if (tier) {
-        return tier.unit_amount / 100;
-      }
-    }
   }
 
   getDescription(product: ProductWithPrice) {
@@ -127,15 +86,13 @@ export class OneProduct {
   }
 
   render() {
+    // standalone (custom elements) builds can upgrade this before pricing-table hands over its props
+    if (!this.product?.price || !this.translations) {
+      return null;
+    }
     const product = this.product;
     const interval = this.interval;
-    let priceAmount = 0;
-
-    if (product.price.billing_scheme === 'tiered') {
-      priceAmount = this.calculateTierPrice();
-    } else {
-      priceAmount = product.price.unit_amount / 100;
-    }
+    const priceAmount = seatPrice(product.price, this.currency, this.quantity);
 
     let displayPriceAmount: number | string = priceAmount;
 
@@ -153,8 +110,9 @@ export class OneProduct {
     const unit = this.translations.unit.toLowerCase();
     const highlighted = !!product.highlight;
 
-    const containerClasses = classNames('rounded-3xl p-8 ring-1 ring-gray-200 h-full', {
+    const containerClasses = classNames('rounded-3xl p-8 ring-1 h-full', {
       'bg-blue-50 ring-blue-500': highlighted,
+      'ring-gray-200': !highlighted,
     });
 
     const idForCallToAction = `${(product.name || '').replace(' ', '')}-${product.id}-call-to-action`;
@@ -170,12 +128,13 @@ export class OneProduct {
           <span class="text-sm font-semibold leading-6 text-gray-600">{unit}</span>
         </p>
 
+        {/* only <span>s inside the <p>: a <div> would be invalid HTML, which browsers split apart when parsing server-rendered markup */}
         <p>
-          <div class="group flex relative">
-            <div class="text-sm font-bold tracking-tight text-gray-900 flex flex-row ">
-              <div>
+          <span class="group flex relative">
+            <span class="text-sm font-bold tracking-tight text-gray-900 flex flex-row ">
+              <span>
                 {total} {translatedInterval}{' '}
-              </div>
+              </span>
               {priceAmount > 0 && (
                 <svg class="w-4 ml-1" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path
@@ -185,16 +144,14 @@ export class OneProduct {
                   ></path>
                 </svg>
               )}
-            </div>
-
-            <span
-              class="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute opacity-0 mx-auto -top-14 left-5 w-10/12"
-            >
-              <div class="p-2 w-full">
-                <span>{this.getTooltip(priceAmount, displayPriceAmount)}</span>
-              </div>
             </span>
-          </div>
+
+            <span class="group-hover:opacity-100 transition-opacity bg-gray-800 px-1 text-sm text-gray-100 rounded-md absolute opacity-0 mx-auto -top-14 left-5 w-10/12">
+              <span class="block p-2 w-full">
+                <span>{this.getTooltip(priceAmount, displayPriceAmount)}</span>
+              </span>
+            </span>
+          </span>
         </p>
         <button
           onClick={() => this.productClickedHandler(product)}
@@ -202,18 +159,15 @@ export class OneProduct {
           {...(product.call_to_action || {})}
           class="mt-6 w-full block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white shadow-sm hover:bg-blue-500 focus-visible:outline-blue-600 disabled:opacity-50"
         >
-          <slot name="callToAction" />
+          {this.callToActionLabel}
         </button>
         <ul role="list" class="mt-8 space-y-3 text-sm leading-6 xl:mt-10 text-gray-600">
           {features.map(feature => {
             return (
               <li class="flex gap-x-3">
                 <svg class="h-6 w-5 flex-none text-blue-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path
-                    fill-rule="evenodd"
-                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                    clip-rule="evenodd"
-                  />
+                  {/* drawn once by pricing-table */}
+                  <use href="#pricing-table-check" />
                 </svg>
                 {feature}
               </li>

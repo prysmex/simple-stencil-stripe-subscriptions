@@ -7,9 +7,13 @@
 
 ## Properties
 
-| Property  | Attribute | Description | Type      | Default     |
-| --------- | --------- | ----------- | --------- | ----------- |
-| `product` | --        |             | `Product` | `undefined` |
+| Property             | Attribute              | Description                                                                                     | Type      | Default     |
+| -------------------- | ---------------------- | ----------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `callToActionLabel`  | `call-to-action-label` |                                                                                                 | `string`  | `undefined` |
+| `product`            | --                     |                                                                                                 | `Product` | `undefined` |
+| `recommended`        | `recommended`          | Lights the card up, e.g. when the selected number of seats is better served by talking to sales | `boolean` | `false`     |
+| `recommendedBadge`   | `recommended-badge`    |                                                                                                 | `string`  | `undefined` |
+| `recommendedMessage` | `recommended-message`  |                                                                                                 | `string`  | `undefined` |
 
 
 ## Events

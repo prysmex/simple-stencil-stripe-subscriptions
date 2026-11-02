@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pricing demo</title>
+    <style>
+      body { margin: 0; font-family: system-ui, sans-serif; color: #111827; }
+      header { max-width: 72rem; margin: 0 auto; padding: 2.5rem 2rem 1.5rem; text-align: center; }
+      header h1 { margin: 0 0 0.5rem; font-size: 2.25rem; }
+      header p { margin: 0.25rem 0; color: #4b5563; }
+      #clicked { max-width: 72rem; margin: 1.5rem auto 3rem; padding: 0 2rem; text-align: center; color: #2563eb; min-height: 1.5rem; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Pricing</h1>
+      <p>Prerendered: the plans and prices below are already in this file's HTML, before any JavaScript runs.</p>
+      <p>Try it: type <strong>50</strong> or more users to see Enterprise light up as the recommendation.</p>
+    </header>
+
+    <pricing-table></pricing-table>
+
+    <p id="clicked"></p>
+    <script>
+      document.querySelector('pricing-table').addEventListener('productClicked', event => {
+        document.getElementById('clicked').textContent = `productClicked: ${event.detail.name} (${event.detail.id})`;
+      });
+    </script>
+  </body>
+</html>

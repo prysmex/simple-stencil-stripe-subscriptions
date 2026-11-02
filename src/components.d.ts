@@ -13,30 +13,71 @@ export { Translations } from "./utils/locale";
 export { Price, Product as Product1 } from "./components/pricing-table/pricing-table";
 export namespace Components {
     interface HighlightedProduct {
+        "callToActionLabel"?: string;
         "product": Product;
+        /**
+          * Lights the card up, e.g. when the selected number of seats is better served by talking to sales
+          * @default false
+         */
+        "recommended": boolean;
+        "recommendedBadge"?: string;
+        "recommendedMessage"?: string;
     }
     interface OneProduct {
+        /**
+          * @default true
+         */
         "alwaysShowMonthly": boolean;
+        "callToActionLabel"?: string;
+        /**
+          * @default 'mxn'
+         */
         "currency": string;
         "product": ProductWithPrice;
+        /**
+          * @default 1
+         */
         "quantity": number;
         "translations": Translations;
     }
     interface PricingTable {
+        /**
+          * @default true
+         */
         "alwaysShowMonthly": boolean;
+        /**
+          * @default 'mxn'
+         */
         "currency": string;
+        /**
+          * @default []
+         */
         "extraProducts": Product1[];
+        /**
+          * @default false
+         */
         "hideTieredInput": boolean;
+        /**
+          * @default []
+         */
         "prices": Price[];
         /**
           * The products
+          * @default []
          */
         "products": Product1[];
+        /**
+          * From this many seats on, the extra products (e.g. Enterprise) light up as the recommended option
+         */
+        "recommendExtraProductsFrom"?: number;
         "translations": Translations;
     }
     interface TieredInput {
         "changeQuantity": (e) => void;
         "label": Translations['tiered_input']['label'];
+        /**
+          * @default 1
+         */
         "quantity": number;
     }
 }
@@ -49,13 +90,35 @@ export interface OneProductCustomEvent<T> extends CustomEvent<T> {
     target: HTMLOneProductElement;
 }
 declare global {
+    interface HTMLHighlightedProductElementEventMap {
+        "productClicked": Product;
+    }
     interface HTMLHighlightedProductElement extends Components.HighlightedProduct, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLHighlightedProductElementEventMap>(type: K, listener: (this: HTMLHighlightedProductElement, ev: HighlightedProductCustomEvent<HTMLHighlightedProductElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLHighlightedProductElementEventMap>(type: K, listener: (this: HTMLHighlightedProductElement, ev: HighlightedProductCustomEvent<HTMLHighlightedProductElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLHighlightedProductElement: {
         prototype: HTMLHighlightedProductElement;
         new (): HTMLHighlightedProductElement;
     };
+    interface HTMLOneProductElementEventMap {
+        "productClicked": ProductWithPrice;
+    }
     interface HTMLOneProductElement extends Components.OneProduct, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLOneProductElementEventMap>(type: K, listener: (this: HTMLOneProductElement, ev: OneProductCustomEvent<HTMLOneProductElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLOneProductElementEventMap>(type: K, listener: (this: HTMLOneProductElement, ev: OneProductCustomEvent<HTMLOneProductElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLOneProductElement: {
         prototype: HTMLOneProductElement;
@@ -82,49 +145,118 @@ declare global {
 }
 declare namespace LocalJSX {
     interface HighlightedProduct {
+        "callToActionLabel"?: string;
         "onProductClicked"?: (event: HighlightedProductCustomEvent<Product>) => void;
         "product"?: Product;
+        /**
+          * Lights the card up, e.g. when the selected number of seats is better served by talking to sales
+          * @default false
+         */
+        "recommended"?: boolean;
+        "recommendedBadge"?: string;
+        "recommendedMessage"?: string;
     }
     interface OneProduct {
+        /**
+          * @default true
+         */
         "alwaysShowMonthly"?: boolean;
+        "callToActionLabel"?: string;
+        /**
+          * @default 'mxn'
+         */
         "currency"?: string;
         "onProductClicked"?: (event: OneProductCustomEvent<ProductWithPrice>) => void;
         "product"?: ProductWithPrice;
+        /**
+          * @default 1
+         */
         "quantity"?: number;
         "translations"?: Translations;
     }
     interface PricingTable {
+        /**
+          * @default true
+         */
         "alwaysShowMonthly"?: boolean;
+        /**
+          * @default 'mxn'
+         */
         "currency"?: string;
+        /**
+          * @default []
+         */
         "extraProducts"?: Product1[];
+        /**
+          * @default false
+         */
         "hideTieredInput"?: boolean;
+        /**
+          * @default []
+         */
         "prices"?: Price[];
         /**
           * The products
+          * @default []
          */
         "products"?: Product1[];
+        /**
+          * From this many seats on, the extra products (e.g. Enterprise) light up as the recommended option
+         */
+        "recommendExtraProductsFrom"?: number;
         "translations"?: Translations;
     }
     interface TieredInput {
         "changeQuantity"?: (e) => void;
         "label"?: Translations['tiered_input']['label'];
+        /**
+          * @default 1
+         */
         "quantity"?: number;
     }
+
+    interface HighlightedProductAttributes {
+        "recommended": boolean;
+        "recommendedBadge": string;
+        "recommendedMessage": string;
+        "callToActionLabel": string;
+    }
+    interface OneProductAttributes {
+        "quantity": number;
+        "currency": string;
+        "alwaysShowMonthly": boolean;
+        "callToActionLabel": string;
+    }
+    interface PricingTableAttributes {
+        "products": string;
+        "prices": string;
+        "extraProducts": string;
+        "currency": string;
+        "hideTieredInput": boolean;
+        "alwaysShowMonthly": boolean;
+        "recommendExtraProductsFrom": number;
+        "translations": string;
+    }
+    interface TieredInputAttributes {
+        "label": Translations['tiered_input']['label'];
+        "quantity": number;
+    }
+
     interface IntrinsicElements {
-        "highlighted-product": HighlightedProduct;
-        "one-product": OneProduct;
-        "pricing-table": PricingTable;
-        "tiered-input": TieredInput;
+        "highlighted-product": Omit<HighlightedProduct, keyof HighlightedProductAttributes> & { [K in keyof HighlightedProduct & keyof HighlightedProductAttributes]?: HighlightedProduct[K] } & { [K in keyof HighlightedProduct & keyof HighlightedProductAttributes as `attr:${K}`]?: HighlightedProductAttributes[K] } & { [K in keyof HighlightedProduct & keyof HighlightedProductAttributes as `prop:${K}`]?: HighlightedProduct[K] };
+        "one-product": Omit<OneProduct, keyof OneProductAttributes> & { [K in keyof OneProduct & keyof OneProductAttributes]?: OneProduct[K] } & { [K in keyof OneProduct & keyof OneProductAttributes as `attr:${K}`]?: OneProductAttributes[K] } & { [K in keyof OneProduct & keyof OneProductAttributes as `prop:${K}`]?: OneProduct[K] };
+        "pricing-table": Omit<PricingTable, keyof PricingTableAttributes> & { [K in keyof PricingTable & keyof PricingTableAttributes]?: PricingTable[K] } & { [K in keyof PricingTable & keyof PricingTableAttributes as `attr:${K}`]?: PricingTableAttributes[K] } & { [K in keyof PricingTable & keyof PricingTableAttributes as `prop:${K}`]?: PricingTable[K] };
+        "tiered-input": Omit<TieredInput, keyof TieredInputAttributes> & { [K in keyof TieredInput & keyof TieredInputAttributes]?: TieredInput[K] } & { [K in keyof TieredInput & keyof TieredInputAttributes as `attr:${K}`]?: TieredInputAttributes[K] } & { [K in keyof TieredInput & keyof TieredInputAttributes as `prop:${K}`]?: TieredInput[K] };
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "highlighted-product": LocalJSX.HighlightedProduct & JSXBase.HTMLAttributes<HTMLHighlightedProductElement>;
-            "one-product": LocalJSX.OneProduct & JSXBase.HTMLAttributes<HTMLOneProductElement>;
-            "pricing-table": LocalJSX.PricingTable & JSXBase.HTMLAttributes<HTMLPricingTableElement>;
-            "tiered-input": LocalJSX.TieredInput & JSXBase.HTMLAttributes<HTMLTieredInputElement>;
+            "highlighted-product": LocalJSX.IntrinsicElements["highlighted-product"] & JSXBase.HTMLAttributes<HTMLHighlightedProductElement>;
+            "one-product": LocalJSX.IntrinsicElements["one-product"] & JSXBase.HTMLAttributes<HTMLOneProductElement>;
+            "pricing-table": LocalJSX.IntrinsicElements["pricing-table"] & JSXBase.HTMLAttributes<HTMLPricingTableElement>;
+            "tiered-input": LocalJSX.IntrinsicElements["tiered-input"] & JSXBase.HTMLAttributes<HTMLTieredInputElement>;
         }
     }
 }

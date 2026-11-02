@@ -38,6 +38,10 @@ export default {
     buy_now: 'Buy Now',
     contact_sales: 'Contact Sales',
   },
+  recommended: {
+    badge: 'Recommended',
+    message: 'For teams of {seats}+ users, we recommend talking with us.',
+  },
   discount_badge_for_yearly: 'Save 16%',
   footer: '* Prices shown excludes taxes <br /> * Ask for our discounts for small businesses',
 };

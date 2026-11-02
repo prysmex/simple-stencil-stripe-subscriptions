@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="{{lang}}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{title}}</title>
+    <meta name="description" content="{{description}}" />
+    <!-- hydrates the prerendered table so tabs, seats and buttons work; pin the version you deploy -->
+    <script type="module" src="{{script}}"></script>
+  </head>
+  <body>
+    <h1>{{title}}</h1>
+
+    <!-- the prerender fills in the data attributes and the rendered table -->
+    <pricing-table></pricing-table>
+
+    <script>
+      document.querySelector('pricing-table').addEventListener('productClicked', event => {
+        console.log('productClicked', event.detail.id);
+      });
+    </script>
+  </body>
+</html>

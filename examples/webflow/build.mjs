@@ -7,7 +7,8 @@
 //                                                           page's custom code, before </body>
 //     -> examples/webflow/out/<lang>/preview.html           both, in a plain page, to try them locally
 //
-// They replace the pages' old embed, which fetched the plans and built the table in the browser.
+// They replace the pages' old embed, which fetched the plans and built the table in the browser. The browser only
+// fetches them now when the page is opened with ?host=, from a non-production environment (other-environment.js).
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { prerenderHtml, slimPlans } from '../../prerender/index.mjs';
 import { fetchPlans } from '../plans.mjs';
@@ -41,11 +42,23 @@ const here = path => new URL(path, import.meta.url);
 const { version } = JSON.parse(await readFile(here('../../package.json'), 'utf8'));
 const script = `https://cdn.jsdelivr.net/npm/simple-stencil-stripe-subscriptions@${version}/dist/simple-stencil-stripe-subscriptions/simple-stencil-stripe-subscriptions.esm.js`;
 // (without its header comment, which explains the placeholders)
-const clickHandlerSource = (await readFile(here('./click-handler.js'), 'utf8')).replace(/^(\/\/.*\n)+/, '');
+const source = async file => (await readFile(here(file), 'utf8')).replace(/^(\/\/.*\n)+/, '');
+const clickHandlerSource = await source('./click-handler.js');
+const otherEnvironmentSource = await source('./other-environment.js');
 
 const { products, prices } = slimPlans(await fetchPlans());
-const enterprise = products.find(p => p.name === 'Enterprise');
-const free = products.find(p => p.name === 'Free');
+
+// A page's table data. Also runs in the browser, inlined into the second embed, with another environment's plans.
+function pageData(products, prices, page) {
+  const enterprise = products.find(p => p.name === 'Enterprise');
+  return {
+    products: products
+      .filter(p => p !== enterprise)
+      .map(p => ({ ...p, highlight: p.name === 'Teams Pro' || undefined, call_to_action: { label: p.name === 'Free' ? page.free : page.trial } })),
+    prices,
+    extraProducts: [{ ...enterprise, price_label: page.enterprise.price_label, interval_label: page.enterprise.interval_label }],
+  };
+}
 
 // The data moves to the second embed (it would not fit in one), so it comes off the table's tag. It is set back
 // before the component script loads, which then takes over the prerendered table with the same data.
@@ -54,14 +67,7 @@ const json = value => JSON.stringify(value).replace(/</g, '\\u003c');
 
 let tooBig = false;
 for (const page of PAGES) {
-  const data = {
-    products: products
-      .filter(p => p !== enterprise)
-      .map(p => ({ ...p, highlight: p.name === 'Teams Pro' || undefined, call_to_action: { label: p === free ? page.free : page.trial } })),
-    prices,
-    extraProducts: [{ ...enterprise, price_label: page.enterprise.price_label, interval_label: page.enterprise.interval_label }],
-    translations: { unit: page.unit },
-  };
+  const data = { ...pageData(products, prices, page), translations: { unit: page.unit } };
 
   const prerendered = await prerenderHtml('<pricing-table></pricing-table>', { lang: page.lang, currency: page.currency, ...data }, { fullDocument: false });
   const tagEnd = prerendered.indexOf('>');
@@ -84,15 +90,14 @@ for (const page of PAGES) {
   }
 })();
 `;
-  const clickHandler = clickHandlerSource
-    .replaceAll('__ENTERPRISE_ID__', enterprise.id)
-    .replaceAll('__ENTERPRISE_URL__', page.enterprise.url)
-    .replaceAll('__FREE_ID__', free.id);
+  const clickHandler = clickHandlerSource.replaceAll('__ENTERPRISE_URL__', page.enterprise.url);
+  // (functions as replacers, so nothing in the replacement is read as a $ pattern)
+  const otherEnvironment = otherEnvironmentSource.replace('__PAGE_DATA__', () => pageData.toString()).replace('__PAGE__', () => json(page));
 
   const embeds = {
     'embed-1-table.html': `${table}\n`,
     // the data first: the component must not start before it is on the table, or it renders an empty table
-    'embed-2-scripts.html': `<script>\n${dataScript}</script>\n<script type="module" src="${script}"></script>\n<script>\n${clickHandler}</script>\n`,
+    'embed-2-scripts.html': `<script>\n${dataScript}</script>\n<script type="module" src="${script}"></script>\n<script>\n${clickHandler}${otherEnvironment}</script>\n`,
   };
 
   await mkdir(here(`./out/${page.lang}/`), { recursive: true });

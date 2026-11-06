@@ -9,7 +9,15 @@ component script from jsDelivr makes it interactive. Each page has two pieces:
 | The table (HTML + CSS) | Code Embed `#pricing-table`, inside the section `#pricing-table-container` | `out/<lang>/embed-1-table.html` |
 | Its data, the component script and the click handler | Page settings → Custom code → Before `</body>` tag | `out/<lang>/embed-2-scripts.html` |
 
-The prices are baked into both pieces. Nothing fetches them in the browser any more.
+The production prices are baked into both pieces, so a normal visit fetches nothing in the browser.
+
+## Other environments
+
+The app's non-production builds (staging, local) link to these pages with `?host=<their API>&origin=<their app>`
+(`landing-pricing-url` in `prysmex_frontend`). Their Stripe prices have other ids, so with `?host=` the page hides the
+table, fetches `<host>/api/billing/plans` and shows those plans instead
+([other-environment.js](other-environment.js)); `?origin=` is where a click on a plan goes to register. If the fetch
+fails the table stays hidden and the console has the error. No rebuild is needed when those plans change.
 
 ## When to update
 
